@@ -1,4 +1,4 @@
-export default {
+export const colors = {
 	primary: '#1063FD',
 	muted: '#3A5A92',
 	background: '#EFEEF6',
@@ -8,4 +8,5 @@ export default {
 	lightGreen: '#DBFFCB',
 	red: '#EF0827',
 	yellow: '#FCC70B',
+	white: '#FFFFFF',
 };
