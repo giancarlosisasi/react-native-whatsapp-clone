@@ -16,8 +16,7 @@ async function main() {
  * It will also make sure to use a different object path max value.
  * Essentially, this will add the required gradle arguments in the following files:
  * - android/app/build.gradle
- * - node_modules/react-native-reanimated/android/build.gradle
- * - node_modules/react-native-worklets/android/build.gradle
+ * - node_modules\react-native-reanimated\android\build.gradle
  *
  * In case we want to use another package that has native code, we need to add the support for it here.
  */
@@ -37,25 +36,12 @@ function fixWindowsLongPathsErrors() {
 		'android',
 		'build.gradle',
 	);
-	const workletsBuildGradlePath = path.join(
-		__dirname,
-		'..',
-		'node_modules',
-		'react-native-worklets',
-		'android',
-		'build.gradle',
-	);
-
 	const androidBuildGradleNewContent = fs.readFileSync(
 		path.join(__dirname, './templates/expo-android-gradle.txt'),
 		'utf8',
 	);
 	const reanimatedBuildGradleNewContent = fs.readFileSync(
 		path.join(__dirname, './templates/react-native-reanimated-gradle.txt'),
-		'utf8',
-	);
-	const workletsBuildGradleNewContent = fs.readFileSync(
-		path.join(__dirname, './templates/react-native-worklets-gradle.txt'),
 		'utf8',
 	);
 
@@ -72,14 +58,6 @@ function fixWindowsLongPathsErrors() {
 	);
 	console.info(
 		'>> node_modules/react-native-reanimated/android/build.gradle modified successfully',
-	);
-	fs.writeFileSync(
-		workletsBuildGradlePath,
-		workletsBuildGradleNewContent,
-		'utf8',
-	);
-	console.info(
-		'>> node_modules/react-native-worklets/android/build.gradle modified successfully',
 	);
 
 	console.info('> Success to fix ninja build, windows errors for long paths');
