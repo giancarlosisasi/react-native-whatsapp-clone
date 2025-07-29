@@ -1,6 +1,12 @@
+import {
+	isClerkAPIResponseError,
+	useSignIn,
+	useSignUp,
+} from '@clerk/clerk-expo';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
+	Alert,
 	Platform,
 	StyleSheet,
 	Text,
@@ -23,10 +29,13 @@ const autoComplete = Platform.select<TextInputProps['autoComplete']>({
 });
 
 export default function VerifyPhoneScreen() {
-	const { phone, signin } = useLocalSearchParams<{
+	const { phone, signin: signinSearchParam } = useLocalSearchParams<{
 		phone: string;
 		signin: string;
 	}>();
+
+	const { signUp, setActive } = useSignUp();
+	const { signIn } = useSignIn();
 
 	const [code, setCode] = useState('');
 	const ref = useBlurOnFulfill({
@@ -39,21 +48,94 @@ export default function VerifyPhoneScreen() {
 		setValue: setCode,
 	});
 
-	useEffect(() => {
+	const onChangeCodeText = (code: string) => {
+		setCode(code);
 		if (code.length === 6) {
-			if (signin === 'true') {
+			if (signinSearchParam === 'true') {
 				verifySignin();
 			} else {
 				verifyCode();
 			}
 		}
-	}, [code, signin]);
+	};
 
-	const verifyCode = async () => {};
+	const verifyCode = async () => {
+		try {
+			await signUp?.attemptPhoneNumberVerification({
+				code,
+			});
 
-	const verifySignin = async () => {};
+			await setActive?.({
+				session: signUp.createdSessionId,
+			});
+		} catch (err) {
+			if (isClerkAPIResponseError(err)) {
+				Alert.alert('Error', err.errors[0].message);
+			} else {
+				console.error(err);
+				Alert.alert('Error', 'An unknown error occurred');
+			}
+		}
+	};
 
-	const resentCode = async () => {};
+	const verifySignin = async () => {
+		if (signIn) {
+			try {
+				await signIn.attemptFirstFactor({
+					strategy: 'phone_code',
+					code,
+				});
+
+				await setActive?.({
+					session: signIn.createdSessionId,
+				});
+			} catch (err) {
+				if (isClerkAPIResponseError(err)) {
+					Alert.alert('Error', err.errors[0].message);
+				} else {
+					console.error(err);
+					Alert.alert('Error', 'An unknown error occurred');
+				}
+			}
+		}
+	};
+
+	const resentCode = async () => {
+		if (signIn && signUp) {
+			try {
+				if (signinSearchParam === 'true') {
+					const { supportedFirstFactors } = await signIn.create({
+						identifier: phone,
+					});
+
+					const firstPhoneFactor = supportedFirstFactors?.find((factor) => {
+						return factor.strategy === 'phone_code';
+					});
+
+					if (firstPhoneFactor) {
+						const { phoneNumberId } = firstPhoneFactor;
+						await signIn.prepareFirstFactor({
+							strategy: 'phone_code',
+							phoneNumberId,
+						});
+					}
+				} else {
+					await signUp.create({
+						phoneNumber: phone,
+					});
+					await signUp.preparePhoneNumberVerification();
+				}
+			} catch (err) {
+				console.error('error', JSON.stringify(err, null, 2));
+				if (isClerkAPIResponseError(err)) {
+					Alert.alert('Error', err.errors[0].message);
+				} else {
+					console.error(err);
+					Alert.alert('Error', 'unknown error');
+				}
+			}
+		}
+	};
 
 	return (
 		<View style={styles.container}>
@@ -71,7 +153,7 @@ export default function VerifyPhoneScreen() {
 				{...props}
 				// Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
 				value={code}
-				onChangeText={setCode}
+				onChangeText={onChangeCodeText}
 				cellCount={CELL_COUNT}
 				rootStyle={styles.codeFieldRoot}
 				keyboardType='number-pad'

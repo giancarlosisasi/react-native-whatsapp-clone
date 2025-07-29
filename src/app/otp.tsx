@@ -1,8 +1,14 @@
+import {
+	isClerkAPIResponseError,
+	useSignIn,
+	useSignUp,
+} from '@clerk/clerk-expo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
 	ActivityIndicator,
+	Alert,
 	KeyboardAvoidingView,
 	Linking,
 	Platform,
@@ -21,7 +27,8 @@ export default function OTP() {
 
 	const router = useRouter();
 
-	const _keyboardVerticalOffset = Platform.OS === 'ios' ? 90 : 0;
+	const { signUp } = useSignUp();
+	const { signIn } = useSignIn();
 
 	const openLink = () => {
 		Linking.openURL('https://www.google.com');
@@ -29,16 +36,58 @@ export default function OTP() {
 
 	const sendOTP = async () => {
 		setLoading(true);
-		setTimeout(() => {
-			setLoading(false);
+		try {
+			await signUp?.create({
+				phoneNumber,
+			});
+
+			await signUp?.preparePhoneNumberVerification();
 			router.push({
 				pathname: '/verify/[phone]',
 				params: { phone: phoneNumber },
 			});
-		}, 500);
+		} catch (err) {
+			if (isClerkAPIResponseError(err)) {
+				if (err.errors[0].code === 'form_identifier_exists') {
+					console.log('user exists');
+					await trySignin();
+				} else {
+					console.log({ phoneNumber });
+					Alert.alert('Error', err.errors[0].message);
+				}
+			} else {
+				console.error(err);
+				Alert.alert('Error', 'An unknown error occurred');
+			}
+		} finally {
+			setLoading(false);
+		}
 	};
 
-	const _trySignin = async () => {};
+	const trySignin = async () => {
+		if (signIn) {
+			const { supportedFirstFactors } = await signIn.create({
+				identifier: phoneNumber,
+			});
+
+			const firstPhoneFactor = supportedFirstFactors?.find((factor) => {
+				return factor.strategy === 'phone_code';
+			});
+			if (firstPhoneFactor) {
+				const { phoneNumberId } = firstPhoneFactor;
+
+				await signIn.prepareFirstFactor({
+					strategy: 'phone_code',
+					phoneNumberId,
+				});
+
+				router.push({
+					pathname: '/verify/[phone]',
+					params: { phone: phoneNumber, signin: 'true' },
+				});
+			}
+		}
+	};
 
 	return (
 		<SafeAreaView style={styles.root}>
@@ -65,8 +114,7 @@ export default function OTP() {
 						<MaskedTextInput
 							autoFocus
 							value={phoneNumber}
-							onChangeText={(text, rawText) => {
-								console.log({ masked: text, unmasked: rawText });
+							onChangeText={(text, _rawText) => {
 								setPhoneNumber(text);
 							}}
 							placeholder='+49 999999999'

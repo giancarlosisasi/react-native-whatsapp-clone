@@ -1,4 +1,3 @@
-import { useAuth } from '@clerk/clerk-expo';
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import {
@@ -12,9 +11,6 @@ import { colors } from '@/theme/colors';
 import welcomeImage from '../../assets/images/welcome.png';
 
 export default function Index() {
-	const { isSignedIn } = useAuth();
-	console.log({ isSignedIn });
-
 	const openLink = () => {
 		Linking.openURL('https://www.google.com');
 	};
