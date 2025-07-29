@@ -13,6 +13,7 @@
 			"scripts/**/*.ts",
 			"package.json",
 			"babel.config.js",
+			"app.json",
 			"app.config.ts",
 			"biome.json",
 			"README.md",

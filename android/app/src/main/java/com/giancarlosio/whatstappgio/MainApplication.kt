@@ -1,4 +1,4 @@
-package com.giancarlosio.whatstapp
+package com.giancarlosio.whatstappgio
 
 import android.app.Application
 import android.content.res.Configuration

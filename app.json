@@ -1,15 +1,16 @@
 {
 	"expo": {
-		"name": "whatstapp",
-		"slug": "whatstapp",
+		"name": "whatstappgio",
+		"slug": "whatstappgio",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
-		"scheme": "whatstapp",
+		"scheme": "whatstappgio",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": true,
+			"bundleIdentifier": "com.giancarlosio.whatstappgio"
 		},
 		"android": {
 			"adaptiveIcon": {
@@ -17,11 +18,11 @@
 				"backgroundColor": "#ffffff"
 			},
 			"edgeToEdgeEnabled": true,
-			"package": "com.giancarlosio.whatstapp"
+			"package": "com.giancarlosio.whatstappgio"
 		},
 		"web": {
 			"bundler": "metro",
-			"output": "static",
+			"output": "server",
 			"favicon": "./assets/images/favicon.png"
 		},
 		"plugins": [
@@ -34,7 +35,14 @@
 					"resizeMode": "contain",
 					"backgroundColor": "#ffffff"
 				}
-			]
+			],
+			[
+				"@react-native-google-signin/google-signin",
+				{
+					"iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
+				}
+			],
+			"expo-secure-store"
 		],
 		"experiments": {
 			"typedRoutes": true

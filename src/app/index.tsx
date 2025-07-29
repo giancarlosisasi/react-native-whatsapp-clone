@@ -31,7 +31,7 @@ export default function Index() {
 				</Text>
 				.
 			</Text>
-			<Link href='/otp' asChild replace>
+			<Link href='/(auth)/login' asChild replace>
 				<TouchableOpacity style={styles.button}>
 					<Text style={styles.buttonText}>Agree & Continue</Text>
 				</TouchableOpacity>

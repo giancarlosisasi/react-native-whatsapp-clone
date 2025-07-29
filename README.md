@@ -57,3 +57,11 @@ Join our community of developers creating universal apps.
 #### CMake error - long paths error (more than 260 characters)
 
 Checkout this: https://github.com/ninja-build/ninja/issues/1900#issuecomment-1817532728
+
+## Guides
+
+### Google Sign In
+
+1. Install the plugin:
+   1. For expo use: `npx expo install @react-native-google-signin/google-signin`
+   2. For web: load the script `https://apis.google.com/js/api:client.js` together with the env  `EXPO_PUBLIC_SOCIAL_AUTH_GOOGLE_OAUTH2_KEY`

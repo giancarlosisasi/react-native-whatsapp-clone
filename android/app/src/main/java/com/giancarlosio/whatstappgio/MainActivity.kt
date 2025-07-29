@@ -1,4 +1,4 @@
-package com.giancarlosio.whatstapp
+package com.giancarlosio.whatstappgio
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
