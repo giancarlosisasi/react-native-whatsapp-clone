@@ -6,7 +6,23 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": [
+			"src/**/*.ts",
+			"src/**/*.tsx",
+			"scripts/**/*.ts",
+			"package.json",
+			"babel.config.js",
+			"app.json",
+			"biome.json",
+			"README.md",
+			"tsconfig.json",
+			"!package-lock.json",
+			"!node_modules/**/*",
+			"!android/**/*",
+			"!ios/**/*",
+			"!.expo"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -20,7 +36,7 @@
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "single"
 		}
 	},
 	"assist": {
