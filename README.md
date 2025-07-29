@@ -48,3 +48,12 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+## Common errors
+
+### Windows
+
+#### CMake error - long paths error (more than 260 characters)
+
+Checkout this: https://github.com/ninja-build/ninja/issues/1900#issuecomment-1817532728
