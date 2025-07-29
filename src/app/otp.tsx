@@ -1,6 +1,6 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import {
 	ActivityIndicator,
 	KeyboardAvoidingView,
@@ -10,21 +10,21 @@ import {
 	Text,
 	TouchableOpacity,
 	View,
-} from "react-native";
-import { MaskedTextInput } from "react-native-mask-text";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { colors } from "@/theme/colors";
+} from 'react-native';
+import { MaskedTextInput } from 'react-native-mask-text';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors } from '@/theme/colors';
 
 export default function OTP() {
 	const [loading, setLoading] = useState(false);
-	const [phoneNumber, setPhoneNumber] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState('');
 
 	const router = useRouter();
 
-	const keyboardVerticalOffset = Platform.OS === "ios" ? 90 : 0;
+	const keyboardVerticalOffset = Platform.OS === 'ios' ? 90 : 0;
 
 	const openLink = () => {
-		Linking.openURL("https://www.google.com");
+		Linking.openURL('https://www.google.com');
 	};
 
 	const sendOTP = async () => {
@@ -32,10 +32,10 @@ export default function OTP() {
 		setTimeout(() => {
 			setLoading(false);
 			router.push({
-				pathname: "/verify/[phone]",
+				pathname: '/verify/[phone]',
 				params: { phone: phoneNumber },
 			});
-		}, 2000);
+		}, 500);
 	};
 
 	const trySignin = async () => {};
@@ -44,7 +44,7 @@ export default function OTP() {
 		<SafeAreaView style={styles.root}>
 			{loading && (
 				<View style={[StyleSheet.absoluteFill, styles.loading]}>
-					<ActivityIndicator size="large" color={colors.primary} />
+					<ActivityIndicator size='large' color={colors.primary} />
 					<Text style={{ fontSize: 18, padding: 10 }}>Sending code...</Text>
 				</View>
 			)}
@@ -58,7 +58,7 @@ export default function OTP() {
 					<View style={styles.list}>
 						<View style={styles.listItem}>
 							<Text style={styles.listItemText}>Germany</Text>
-							<Ionicons name="chevron-forward" size={20} color={colors.gray} />
+							<Ionicons name='chevron-forward' size={20} color={colors.gray} />
 						</View>
 						<View style={styles.separator} />
 
@@ -69,19 +69,19 @@ export default function OTP() {
 								console.log({ masked: text, unmasked: rawText });
 								setPhoneNumber(text);
 							}}
-							placeholder="+49 999999999"
-							keyboardType="numeric"
-							mask="+99 9999999999"
+							placeholder='+49 999999999'
+							keyboardType='numeric'
+							mask='+99 9999999999'
 							style={styles.input}
 						/>
 					</View>
 
 					<Text style={styles.legal}>
-						You must be{" "}
+						You must be{' '}
 						<Text style={styles.link} onPress={openLink}>
 							at least 16 years old
-						</Text>{" "}
-						to register. Learn how Whatsapp works with the{" "}
+						</Text>{' '}
+						to register. Learn how Whatsapp works with the{' '}
 						<Text style={styles.link} onPress={openLink}>
 							Meta companies
 						</Text>
@@ -94,13 +94,13 @@ export default function OTP() {
 						onPress={sendOTP}
 						style={[
 							styles.button,
-							phoneNumber !== "" ? styles.buttonEnabled : null,
+							phoneNumber !== '' ? styles.buttonEnabled : null,
 						]}
 					>
 						<Text
 							style={[
 								styles.buttonText,
-								phoneNumber !== "" ? styles.buttonEnabled : null,
+								phoneNumber !== '' ? styles.buttonEnabled : null,
 							]}
 						>
 							Next
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-		alignItems: "center",
+		alignItems: 'center',
 		paddingHorizontal: 20,
 		gap: 20,
 	},
@@ -129,14 +129,14 @@ const styles = StyleSheet.create({
 	},
 	list: {
 		backgroundColor: colors.white,
-		width: "100%",
+		width: '100%',
 		borderRadius: 10,
 		padding: 10,
 	},
 	listItem: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
 		padding: 6,
 		marginBottom: 10,
 	},
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
 		color: colors.primary,
 	},
 	separator: {
-		width: "100%",
+		width: '100%',
 		height: StyleSheet.hairlineWidth,
 		backgroundColor: colors.gray,
 		opacity: 0.5,
@@ -154,13 +154,13 @@ const styles = StyleSheet.create({
 		color: colors.primary,
 	},
 	legal: {
-		textAlign: "center",
+		textAlign: 'center',
 		fontSize: 12,
-		color: "#000",
+		color: '#000',
 	},
 	button: {
-		width: "100%",
-		alignItems: "center",
+		width: '100%',
+		alignItems: 'center',
 		backgroundColor: colors.lightGray,
 		padding: 10,
 		borderRadius: 10,
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
 	buttonText: {
 		color: colors.gray,
 		fontSize: 22,
-		fontWeight: "500",
+		fontWeight: '500',
 	},
 	input: {
 		fontSize: 18,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
 		...StyleSheet.absoluteFillObject,
 		zIndex: 10,
 		backgroundColor: colors.white,
-		justifyContent: "center",
-		alignItems: "center",
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 });
