@@ -1,18 +1,22 @@
-import { Image } from "expo-image";
-import { Link } from "expo-router";
+import { useAuth } from '@clerk/clerk-expo';
+import { Image } from 'expo-image';
+import { Link } from 'expo-router';
 import {
 	Linking,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
 	View,
-} from "react-native";
-import { colors } from "@/theme/colors";
-import welcomeImage from "../../assets/images/welcome.png";
+} from 'react-native';
+import { colors } from '@/theme/colors';
+import welcomeImage from '../../assets/images/welcome.png';
 
 export default function Index() {
+	const { isSignedIn } = useAuth();
+	console.log({ isSignedIn });
+
 	const openLink = () => {
-		Linking.openURL("https://www.google.com");
+		Linking.openURL('https://www.google.com');
 	};
 
 	return (
@@ -21,7 +25,7 @@ export default function Index() {
 			<Text style={styles.headline}>Welcome to whatsapp clone</Text>
 
 			<Text style={styles.description}>
-				Read our{" "}
+				Read our{' '}
 				<Text style={styles.link} onPress={openLink}>
 					Privacy Policy
 				</Text>
@@ -31,7 +35,7 @@ export default function Index() {
 				</Text>
 				.
 			</Text>
-			<Link href="/otp" asChild replace>
+			<Link href='/otp' asChild replace>
 				<TouchableOpacity style={styles.button}>
 					<Text style={styles.buttonText}>Agree & Continue</Text>
 				</TouchableOpacity>
@@ -44,29 +48,29 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 20,
-		alignItems: "center",
-		justifyContent: "center",
+		alignItems: 'center',
+		justifyContent: 'center',
 		backgroundColor: colors.white,
 	},
 	box: {
 		width: 100,
 		height: 80,
-		backgroundColor: "black",
+		backgroundColor: 'black',
 		margin: 30,
 	},
 	welcomeImage: {
-		width: "100%",
+		width: '100%',
 		height: 300,
 		marginBottom: 80,
 	},
 	headline: {
 		fontSize: 24,
-		fontWeight: "bold",
+		fontWeight: 'bold',
 		marginVertical: 20,
 	},
 	description: {
 		fontSize: 14,
-		textAlign: "center",
+		textAlign: 'center',
 		marginBottom: 80,
 		color: colors.gray,
 	},
@@ -74,12 +78,12 @@ const styles = StyleSheet.create({
 		color: colors.primary,
 	},
 	button: {
-		width: "100%",
-		alignItems: "center",
+		width: '100%',
+		alignItems: 'center',
 	},
 	buttonText: {
 		fontSize: 22,
 		color: colors.primary,
-		fontWeight: "bold",
+		fontWeight: 'bold',
 	},
 });

@@ -21,7 +21,7 @@ export default function OTP() {
 
 	const router = useRouter();
 
-	const keyboardVerticalOffset = Platform.OS === 'ios' ? 90 : 0;
+	const _keyboardVerticalOffset = Platform.OS === 'ios' ? 90 : 0;
 
 	const openLink = () => {
 		Linking.openURL('https://www.google.com');
@@ -38,7 +38,7 @@ export default function OTP() {
 		}, 500);
 	};
 
-	const trySignin = async () => {};
+	const _trySignin = async () => {};
 
 	return (
 		<SafeAreaView style={styles.root}>
