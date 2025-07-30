@@ -1,17 +1,20 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useAuth } from '@/shared/context/auth';
 import { colors } from '@/theme/colors';
 
-export default function LoginPage() {
+export const LoginForm = () => {
+	const { signin } = useAuth();
+
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity style={styles.button}>
+			<TouchableOpacity style={styles.button} onPress={signin}>
 				<AntDesign name='google' size={24} color={colors.white} />
 				<Text style={styles.buttonText}>Continue with Google</Text>
 			</TouchableOpacity>
 		</View>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {

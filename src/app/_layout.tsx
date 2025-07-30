@@ -1,9 +1,10 @@
 // import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 // import { tokenCache } from '@clerk/clerk-expo/token-cache';
-import { Stack, useRouter, useSegments } from 'expo-router';
+
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { AuthProvider, useAuth } from '@/shared/context/auth';
 
 // import { colors } from '@/theme/colors';
 
@@ -20,10 +21,13 @@ function InitialLayout() {
 	// const segments = useSegments();
 
 	// const { isLoaded, isSignedIn } = useAuth();
+	const { isLoading, user } = useAuth();
 
 	useEffect(() => {
-		SplashScreen.hideAsync();
-	}, []);
+		if (!isLoading) {
+			SplashScreen.hideAsync();
+		}
+	}, [isLoading]);
 
 	// // biome-ignore lint/correctness/useExhaustiveDependencies: we are not going to depends on segments, this logic must be only run in the first render
 	// useEffect(() => {
@@ -48,16 +52,29 @@ function InitialLayout() {
 	// 	);
 	// }
 
+	// if (isLoading) {
+	// 	return (
+	// 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+	// 			<ActivityIndicator color={colors.primary} />
+	// 		</View>
+	// 	);
+	// }
+
 	return (
 		<SafeAreaProvider initialMetrics={initialWindowMetrics}>
 			<Stack>
-				<Stack.Screen
-					name='index'
-					options={{
-						headerShown: false,
-					}}
-				/>
-				<Stack.Screen name='(auth)/login' options={{ headerShown: false }} />
+				<Stack.Protected guard={!user}>
+					<Stack.Screen
+						name='index'
+						options={{
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen name='sign-in' options={{ headerShown: false }} />
+				</Stack.Protected>
+				<Stack.Protected guard={!!user}>
+					<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+				</Stack.Protected>
 				{/* <Stack.Screen
 					name='otp'
 					options={{
@@ -82,7 +99,9 @@ function InitialLayout() {
 export default function RootLayout() {
 	return (
 		// <ClerkProvider tokenCache={tokenCache}>
-		<InitialLayout />
+		<AuthProvider>
+			<InitialLayout />
+		</AuthProvider>
 		// </ClerkProvider>
 	);
 }
