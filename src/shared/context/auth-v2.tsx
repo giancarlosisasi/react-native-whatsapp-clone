@@ -7,12 +7,11 @@ import {
 } from 'expo-auth-session';
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
-	APP_SCHEME,
 	AUTH_GOOGLE_OAUTH_LOGOUT_URL,
 	AUTH_GOOGLE_OAUTH_URL,
 } from '../constants/auth';
 
-export type TAuthUser = {
+type TAuthUser = {
 	id: string;
 	name: string;
 	email: string;
@@ -29,7 +28,7 @@ type TAuthContext = {
 	signout: () => Promise<void>;
 };
 
-export const AuthContext = createContext<TAuthContext | undefined>(undefined);
+const AuthContext = createContext<TAuthContext | undefined>(undefined);
 
 const config: AuthRequestConfig = {
 	clientId: 'google',

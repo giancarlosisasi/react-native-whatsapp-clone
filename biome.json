@@ -18,6 +18,7 @@
 			"biome.json",
 			"README.md",
 			"tsconfig.json",
+			"knip.json",
 			"!package-lock.json",
 			"!node_modules/**/*",
 			"!android/**/*",

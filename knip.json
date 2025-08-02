@@ -1,0 +1,29 @@
+{
+	"entry": ["src/app/**/*.{ts,tsx}"],
+	"project": ["src/**/*.{ts,tsx}"],
+	"ignore": [
+		"node_modules",
+		"dist",
+		"build",
+		"public",
+		"ios",
+		"android",
+		"web"
+	],
+	"ignoreDependencies": [
+		"@react-navigation/bottom-tabs",
+		"@react-navigation/elements",
+		"@react-navigation/native",
+		"expo-blur",
+		"expo-crypto",
+		"expo-haptics",
+		"expo-status-bar",
+		"expo-symbols",
+		"jose",
+		"react-native-gesture-handler",
+		"react-native-mask-input",
+		"@babel/core",
+		"expo-updates"
+	],
+	"ignoreUnresolved": ["babel-preset-expo"]
+}
