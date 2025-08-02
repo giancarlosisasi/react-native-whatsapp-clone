@@ -19,6 +19,7 @@
 			"README.md",
 			"tsconfig.json",
 			"knip.json",
+			".lintstagedrc.json",
 			"!package-lock.json",
 			"!node_modules/**/*",
 			"!android/**/*",
