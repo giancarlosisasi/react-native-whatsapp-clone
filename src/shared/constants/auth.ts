@@ -17,6 +17,13 @@ export const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
 export const APP_SCHEME = process.env.EXPO_PUBLIC_SCHEME;
 export const JWT_SECRET = process.env.JWT_SECRET;
 
+export const AUTH_GOOGLE_OAUTH_URL =
+	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_URL;
+export const AUTH_GOOGLE_OAUTH_CALLBACK_URL =
+	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_CALLBACK_URL;
+export const AUTH_GOOGLE_OAUTH_LOGOUT_URL =
+	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_LOGOUT_URL;
+
 export const COOKIE_OPTIONS = {
 	httpOnly: true,
 	secure: true,

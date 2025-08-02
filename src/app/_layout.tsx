@@ -3,8 +3,7 @@
 
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import { AuthProvider, useAuth } from '@/shared/context/auth';
+import { AuthProvider, useAuth } from '@/shared/context/auth-v2';
 
 // import { colors } from '@/theme/colors';
 
@@ -22,12 +21,13 @@ function InitialLayout() {
 
 	// const { isLoaded, isSignedIn } = useAuth();
 	const { isLoading, user } = useAuth();
+	console.log('user', { isLoading, user });
 
-	useEffect(() => {
-		if (!isLoading) {
-			SplashScreen.hideAsync();
-		}
-	}, [isLoading]);
+	// useEffect(() => {
+	// 	if (!isLoading) {
+	// 		SplashScreen.hideAsync();
+	// 	}
+	// }, [isLoading]);
 
 	// // biome-ignore lint/correctness/useExhaustiveDependencies: we are not going to depends on segments, this logic must be only run in the first render
 	// useEffect(() => {
@@ -63,18 +63,19 @@ function InitialLayout() {
 	return (
 		<SafeAreaProvider initialMetrics={initialWindowMetrics}>
 			<Stack>
-				<Stack.Protected guard={!user}>
-					<Stack.Screen
-						name='index'
-						options={{
-							headerShown: false,
-						}}
-					/>
-					<Stack.Screen name='sign-in' options={{ headerShown: false }} />
-				</Stack.Protected>
-				<Stack.Protected guard={!!user}>
-					<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-				</Stack.Protected>
+				<Stack.Screen name='auth/[token]' options={{ headerShown: false }} />
+				{/* <Stack.Protected guard={!user}> */}
+				<Stack.Screen
+					name='index'
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<Stack.Screen name='sign-in' options={{ headerShown: false }} />
+				{/* </Stack.Protected> */}
+				{/* <Stack.Protected guard={!!user}> */}
+				<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+				{/* </Stack.Protected> */}
 				{/* <Stack.Screen
 					name='otp'
 					options={{

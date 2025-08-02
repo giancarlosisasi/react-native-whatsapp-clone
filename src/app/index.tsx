@@ -9,7 +9,7 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
-import { useAuth } from '@/shared/context/auth';
+import { useAuth } from '@/shared/context/auth-v2';
 import { colors } from '@/theme/colors';
 import { LoginForm } from '@/views/auth/components/login-form';
 import welcomeImage from '../../assets/images/welcome.png';
