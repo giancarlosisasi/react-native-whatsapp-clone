@@ -12,15 +12,15 @@
 		"format": "biome format --write",
 		"check": "biome check --write",
 		"platform-setup": "tsx ./scripts/windows-support.ts",
-		"knip": "knip",
+		"validate:knip": "knip",
 		"prepare": "husky"
 	},
 	"dependencies": {
 		"@clerk/clerk-expo": "2.14.13",
 		"@expo/vector-icons": "14.1.0",
-		"@react-navigation/bottom-tabs": "7.3.10",
-		"@react-navigation/elements": "2.3.8",
-		"@react-navigation/native": "7.1.6",
+		"@react-navigation/bottom-tabs": "^7.4.5",
+		"@react-navigation/elements": "^2.6.2",
+		"@react-navigation/native": "^7.1.17",
 		"expo": "53.0.20",
 		"expo-auth-session": "6.2.1",
 		"expo-blur": "14.1.5",
@@ -53,7 +53,7 @@
 		"react-native-webview": "13.13.5"
 	},
 	"devDependencies": {
-		"@babel/core": "7.25.2",
+		"@babel/core": "7.26.0",
 		"@biomejs/biome": "2.1.2",
 		"@types/node": "24.1.0",
 		"@types/react": "19.0.10",

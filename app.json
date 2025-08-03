@@ -10,7 +10,10 @@
 		"newArchEnabled": true,
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.giancarlosio.whatstappgio"
+			"bundleIdentifier": "com.giancarlosio.whatstappgio",
+			"config": {
+				"usesNonExemptEncryption": false
+			}
 		},
 		"android": {
 			"adaptiveIcon": {
@@ -39,7 +42,7 @@
 			"expo-secure-store"
 		],
 		"experiments": {
-			"typedRoutes": true
+			"typedRoutes": false
 		}
 	}
 }
