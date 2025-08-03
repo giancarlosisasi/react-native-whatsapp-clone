@@ -9,9 +9,8 @@ export default function AuthToken() {
 	const router = useRouter();
 	const { saveAuthToken } = useAuth();
 
-	console.log('auth token page');
-
 	useEffect(() => {
+		console.log('auth token page - processing auth token', { token });
 		const processAuthToken = async (token: string) => {
 			if (token) {
 				try {

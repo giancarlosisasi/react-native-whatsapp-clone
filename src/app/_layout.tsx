@@ -16,53 +16,9 @@ import {
 } from 'react-native-safe-area-context';
 
 function InitialLayout() {
-	// const router = useRouter();
-	// const segments = useSegments();
-
-	// const { isLoaded, isSignedIn } = useAuth();
-	// const { isLoading, user } = useAuth();
-
-	// useEffect(() => {
-	// 	if (!isLoading) {
-	// 		SplashScreen.hideAsync();
-	// 	}
-	// }, [isLoading]);
-
-	// // biome-ignore lint/correctness/useExhaustiveDependencies: we are not going to depends on segments, this logic must be only run in the first render
-	// useEffect(() => {
-	// 	if (!isLoaded) {
-	// 		return;
-	// 	}
-
-	// 	const inTabsGroup = segments[0] === '(tabs)';
-
-	// 	if (isSignedIn && !inTabsGroup) {
-	// 		router.replace('/(tabs)/chats');
-	// 	} else if (!isSignedIn) {
-	// 		router.replace('/');
-	// 	}
-	// }, [isSignedIn, isLoaded, router]);
-
-	// if (!isLoaded) {
-	// 	return (
-	// 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-	// 			<ActivityIndicator color={colors.primary} />
-	// 		</View>
-	// 	);
-	// }
-
-	// if (isLoading) {
-	// 	return (
-	// 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-	// 			<ActivityIndicator color={colors.primary} />
-	// 		</View>
-	// 	);
-	// }
-
 	return (
 		<Stack>
 			<Stack.Screen name='auth/[token]' options={{ headerShown: false }} />
-			{/* <Stack.Protected guard={!user}> */}
 			<Stack.Screen
 				name='index'
 				options={{
@@ -70,26 +26,7 @@ function InitialLayout() {
 				}}
 			/>
 			<Stack.Screen name='sign-in' options={{ headerShown: false }} />
-			{/* </Stack.Protected> */}
-			{/* <Stack.Protected guard={!!user}> */}
 			<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-			{/* </Stack.Protected> */}
-			{/* <Stack.Screen
-					name='otp'
-					options={{
-						headerTitle: 'Enter Your Phone Number',
-						headerBackVisible: false,
-					}}
-				/>
-
-				<Stack.Screen
-					name='verify/[phone]'
-					options={{
-						headerTitle: 'Verify Your Phone Number',
-						headerBackVisible: true,
-						headerBackTitle: 'Edit number',
-					}}
-				/> */}
 		</Stack>
 	);
 }

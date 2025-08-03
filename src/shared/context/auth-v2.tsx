@@ -60,6 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [_, __, promptAsync] = useAuthRequest(config, discovery);
 
 	useEffect(() => {
+		console.log('auth provider - getting auth token');
 		const getAuthToken = async () => {
 			const token = await asyncAuthStorage.getAuthToken();
 
@@ -74,12 +75,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	const signout = async () => {
+		console.log('auth provider - signing out');
 		await asyncAuthStorage.removeAuthToken();
 		setUser(undefined);
 		setAuthToken(undefined);
 	};
 
 	const saveAuthToken = useCallback(async (token: string) => {
+		console.log('auth provider - saving auth token', { token });
 		await asyncAuthStorage.setAuthToken(token);
 		setAuthToken(token);
 	}, []);
