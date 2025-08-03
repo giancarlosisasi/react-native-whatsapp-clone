@@ -10,7 +10,6 @@ export default function TabLayout() {
 		<GestureHandlerRootView style={{ flex: 1 }}>
 			<Tabs
 				screenOptions={{
-					// headerShown: false,
 					tabBarStyle: {
 						backgroundColor: colors.background,
 					},
@@ -66,6 +65,7 @@ export default function TabLayout() {
 				<Tabs.Screen
 					name='settings'
 					options={{
+						headerShown: false,
 						title: 'Settings',
 						tabBarIcon: ({ color }) => (
 							<Ionicons size={28} name='cog' color={color} />
