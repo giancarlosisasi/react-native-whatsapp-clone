@@ -4,7 +4,7 @@
 		"slug": "whatstappgio",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/images/luna-icon.png",
+		"icon": "./assets/images/icon.png",
 		"scheme": "whatstappgio",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
@@ -17,8 +17,8 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/luna-icon.png",
-				"backgroundColor": "#667eea"
+				"foregroundImage": "./assets/images/icon.png",
+				"backgroundColor": "#705fbf"
 			},
 			"edgeToEdgeEnabled": true,
 			"package": "com.giancarlosio.whatstappgio"
@@ -26,17 +26,17 @@
 		"web": {
 			"bundler": "metro",
 			"output": "server",
-			"favicon": "./assets/images/luna-icon.png"
+			"favicon": "./assets/images/icon.png"
 		},
 		"plugins": [
 			"expo-router",
 			[
 				"expo-splash-screen",
 				{
-					"image": "./assets/images/luna-icon.png",
+					"image": "./assets/images/splash.png",
 					"imageWidth": 200,
 					"resizeMode": "contain",
-					"backgroundColor": "#667eea"
+					"backgroundColor": "#705fbf"
 				}
 			],
 			"expo-secure-store"
