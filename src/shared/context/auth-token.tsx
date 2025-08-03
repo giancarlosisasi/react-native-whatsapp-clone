@@ -53,6 +53,10 @@ export const AuthTokenProvider = ({
 			}
 		};
 		fetchToken();
+
+		return () => {
+			console.log('unmounting auth token provider');
+		};
 	}, [router]);
 
 	const saveAuthToken = useCallback(async (token: string) => {

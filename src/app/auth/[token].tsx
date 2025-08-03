@@ -28,6 +28,7 @@ export default function AuthToken() {
 	}, [router]);
 
 	useEffect(() => {
+		console.log('auth/[token] page - processing token');
 		const processAuthToken = async (token: string) => {
 			if (token) {
 				try {
