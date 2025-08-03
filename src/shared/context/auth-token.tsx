@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import {
 	createContext,
 	useCallback,
@@ -8,6 +9,10 @@ import {
 } from 'react';
 import { FullScreenActivityIndicator } from '../components/full-screen-activity-indicator';
 import { asyncAuthStorage } from '../storage/auth-storage';
+
+// prevent the splash screen from auto-hiding before asset loading is complete
+// the .hide method is called in the `src\shared\context\auth.tsx` file because that is the final loading state we need to handle
+SplashScreen.preventAutoHideAsync();
 
 type TAuthTokenContext = {
 	authToken: string | undefined;
@@ -30,6 +35,7 @@ export const AuthTokenProvider = ({
 	const [authToken, setAuthToken] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
+		console.log('fetching auth token');
 		const fetchToken = async () => {
 			setIsLoading(true);
 			try {

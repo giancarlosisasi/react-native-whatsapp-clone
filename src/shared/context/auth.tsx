@@ -4,10 +4,10 @@ import {
 	useAuthRequest,
 } from 'expo-auth-session';
 import { useRouter } from 'expo-router';
-import { createContext, useContext, useState } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { graphql, useLazyLoadQuery } from 'react-relay';
 import { AUTH_GOOGLE_OAUTH_URL } from '../constants/auth';
-import { asyncAuthStorage } from '../storage/auth-storage';
 import type { authV2GetMeQuery } from './__generated__/authV2GetMeQuery.graphql';
 import { useAuthToken } from './auth-token';
 
@@ -74,6 +74,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [error, setError] = useState<Error | undefined>(undefined);
 
 	const [_, __, promptAsync] = useAuthRequest(config, discovery);
+
+	useEffect(() => {
+		SplashScreen.hide();
+	}, []);
 
 	const signin = async () => {
 		promptAsync();

@@ -20,14 +20,8 @@ export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
 	>(undefined);
 
 	const setupRelayEnvironment = useCallback(async (authToken?: string) => {
-		console.log(
-			'> Setting up relay environment using the auth token: ',
-			authToken || 'undefined',
-		);
-
 		setLoading(true);
 		const fetchGraphQL: FetchFunction = async (request, variables) => {
-			console.log('fetching graphql', { authToken, HTTP_ENDPOINT });
 			const headers: RequestInit['headers'] = {
 				'Content-Type': 'application/json',
 			};
@@ -59,6 +53,7 @@ export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
 
 	// the auth token will only change when a new user session is created (user logs in)
 	useEffect(() => {
+		console.log('setting up relay environment');
 		setupRelayEnvironment(authToken);
 	}, [setupRelayEnvironment, authToken]);
 

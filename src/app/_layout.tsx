@@ -1,10 +1,4 @@
 import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { AuthProvider } from '@/shared/context/auth';
-
-// prevent the splash screen from auto-hiding before asset loading is complete
-SplashScreen.preventAutoHideAsync();
-
 import { Suspense } from 'react';
 import {
 	initialWindowMetrics,
@@ -12,13 +6,13 @@ import {
 } from 'react-native-safe-area-context';
 import { FullScreenActivityIndicator } from '@/shared/components/full-screen-activity-indicator';
 import { RootErrorBoundary } from '@/shared/components/root-error-boundary';
+import { AuthProvider } from '@/shared/context/auth';
 import { AuthTokenProvider } from '@/shared/context/auth-token';
 import { RelayProvider } from '@/shared/context/relay';
 
 function InitialLayout() {
 	return (
 		<Stack>
-			<Stack.Screen name='auth/[token]' options={{ headerShown: false }} />
 			<Stack.Screen
 				name='index'
 				options={{
@@ -27,6 +21,7 @@ function InitialLayout() {
 			/>
 			<Stack.Screen name='sign-in' options={{ headerShown: false }} />
 			<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+			<Stack.Screen name='auth/[token]' options={{ headerShown: false }} />
 		</Stack>
 	);
 }
@@ -35,15 +30,15 @@ export default function RootLayout() {
 	return (
 		<RootErrorBoundary>
 			<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-				<Suspense fallback={<FullScreenActivityIndicator />}>
-					<AuthTokenProvider>
-						<RelayProvider>
+				<AuthTokenProvider>
+					<RelayProvider>
+						<Suspense fallback={<FullScreenActivityIndicator />}>
 							<AuthProvider>
 								<InitialLayout />
 							</AuthProvider>
-						</RelayProvider>
-					</AuthTokenProvider>
-				</Suspense>
+						</Suspense>
+					</RelayProvider>
+				</AuthTokenProvider>
 			</SafeAreaProvider>
 		</RootErrorBoundary>
 	);
