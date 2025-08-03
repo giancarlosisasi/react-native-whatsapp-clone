@@ -1,19 +1,18 @@
-// import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
-// import { tokenCache } from '@clerk/clerk-expo/token-cache';
-
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { AuthProvider, useAuth } from '@/shared/context/auth-v2';
-
-// import { colors } from '@/theme/colors';
+import { AuthProvider } from '@/shared/context/auth-relay';
 
 // prevent the splash screen from auto-hiding before asset loading is complete
 SplashScreen.preventAutoHideAsync();
 
+import { Suspense } from 'react';
 import {
 	initialWindowMetrics,
 	SafeAreaProvider,
 } from 'react-native-safe-area-context';
+import { FullScreenActivityIndicator } from '@/shared/components/full-screen-activity-indicator';
+import { RootErrorBoundary } from '@/shared/components/root-error-boundary';
+import { RelayProvider } from '@/shared/context/relay';
 
 function InitialLayout() {
 	return (
@@ -33,10 +32,16 @@ function InitialLayout() {
 
 export default function RootLayout() {
 	return (
-		<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-			<AuthProvider>
-				<InitialLayout />
-			</AuthProvider>
-		</SafeAreaProvider>
+		<RootErrorBoundary>
+			<SafeAreaProvider initialMetrics={initialWindowMetrics}>
+				<Suspense fallback={<FullScreenActivityIndicator />}>
+					<RelayProvider>
+						<AuthProvider>
+							<InitialLayout />
+						</AuthProvider>
+					</RelayProvider>
+				</Suspense>
+			</SafeAreaProvider>
+		</RootErrorBoundary>
 	);
 }

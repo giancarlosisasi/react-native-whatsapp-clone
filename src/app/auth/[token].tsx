@@ -1,41 +1,51 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { ActivityIndicator, Alert, Text, View } from 'react-native';
-import { useAuth } from '@/shared/context/auth-v2';
+import { useRelay } from '@/shared/context/relay';
+import { asyncAuthStorage } from '@/shared/storage/auth-storage';
 import { colors } from '@/theme/colors';
 
 export default function AuthToken() {
 	const { token } = useLocalSearchParams<{ token: string }>();
 	const router = useRouter();
-	const { saveAuthToken } = useAuth();
+	const { setupRelayEnvironment } = useRelay();
+
+	const failedToProcessToken = useCallback(() => {
+		() => {
+			Alert.alert(
+				'Ups! Ocurrió un error',
+				'El proceso de autenticación falló. Por favor, intenta nuevamente.',
+				[
+					{
+						text: 'Reintentar',
+						onPress: () => {
+							router.push('/');
+						},
+					},
+				],
+			);
+		};
+	}, [router]);
 
 	useEffect(() => {
 		console.log('auth token page - processing auth token', { token });
 		const processAuthToken = async (token: string) => {
 			if (token) {
 				try {
-					await saveAuthToken(token);
+					await asyncAuthStorage.setAuthToken(token);
+					await setupRelayEnvironment(token);
 					router.replace('/(tabs)/chats');
 				} catch (error) {
 					console.error(error);
-					Alert.alert(
-						'Ups! Ocurrió un error',
-						'El proceso de autenticación falló. Por favor, intenta nuevamente.',
-						[
-							{
-								text: 'Reintentar',
-								onPress: () => {
-									router.push('/');
-								},
-							},
-						],
-					);
+					failedToProcessToken();
 				}
+			} else {
+				failedToProcessToken();
 			}
 		};
 
 		processAuthToken(token);
-	}, [token, router, saveAuthToken]);
+	}, [token, router, setupRelayEnvironment, failedToProcessToken]);
 
 	return (
 		<View

@@ -1,0 +1,44 @@
+"""
+Directs the executor to defer this fragment when the `if` argument is true or undefined.
+"""
+directive @defer(
+  """Deferred when true or undefined."""
+  if: Boolean = true
+
+  """Unique name"""
+  label: String
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+scalar DateTime
+
+type Mutation {
+  createTodo(input: NewTodo!): Todo!
+}
+
+input NewTodo {
+  text: String!
+  userId: String!
+}
+
+type Query {
+  me: User
+  todos: [Todo!]!
+}
+
+scalar Time
+
+type Todo {
+  done: Boolean!
+  id: ID!
+  text: String!
+  user: User!
+}
+
+type User {
+  avatarUrl: String
+  createdAt: Time!
+  email: String!
+  id: ID!
+  name: String
+  updatedAt: Time!
+}

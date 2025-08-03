@@ -1,6 +1,6 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useAuth } from '@/shared/context/auth-v2';
+import { useAuth } from '@/shared/context/auth-relay';
 import { colors } from '@/theme/colors';
 
 export const LoginForm = () => {

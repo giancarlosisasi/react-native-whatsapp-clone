@@ -5,11 +5,13 @@ import {
 	Text,
 	View,
 } from 'react-native';
-import { useAuth } from '@/shared/context/auth-v2';
+import { useAuth } from '@/shared/context/auth-relay';
 import { colors } from '@/theme/colors';
 
 export default function Chats() {
 	const { user, isLoading, signout } = useAuth();
+
+	console.log('chats page - user', { user, isLoading });
 
 	if (isLoading) {
 		return (
