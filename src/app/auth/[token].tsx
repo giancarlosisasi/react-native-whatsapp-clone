@@ -19,7 +19,7 @@ export default function AuthToken() {
 					{
 						text: 'Reintentar',
 						onPress: () => {
-							router.push('/');
+							router.replace('/');
 						},
 					},
 				],
@@ -44,6 +44,8 @@ export default function AuthToken() {
 
 		processAuthToken(token);
 	}, [token, router, saveAuthToken, failedToProcessToken]);
+
+	console.log('auth token page - token', token);
 
 	return (
 		<View
