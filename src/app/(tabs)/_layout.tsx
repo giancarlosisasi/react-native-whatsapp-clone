@@ -1,4 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { colors } from '@/theme/colors';
@@ -10,12 +11,12 @@ export default function TabLayout() {
 				<Tabs.Screen
 					name='updates'
 					options={{
-						title: 'Chats',
+						title: 'Updates',
 						tabBarShowLabel: false,
 						tabBarActiveTintColor: colors.primary,
 						tabBarInactiveTintColor: colors.gray,
-						tabBarIcon: ({ color }) => (
-							<FontAwesome size={28} name='comments' color={color} />
+						tabBarIcon: ({ color, size }) => (
+							<MaterialIcons size={size} name='update' color={color} />
 						),
 					}}
 				/>

@@ -18,7 +18,7 @@
 		"android": {
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/images/icon.png",
-				"backgroundColor": "#705fbf"
+				"backgroundColor": "#35247a"
 			},
 			"edgeToEdgeEnabled": true,
 			"package": "com.giancarlosio.whatstappgio"
@@ -36,7 +36,7 @@
 					"image": "./assets/images/splash.png",
 					"imageWidth": 200,
 					"resizeMode": "contain",
-					"backgroundColor": "#705fbf"
+					"backgroundColor": "#35247a"
 				}
 			],
 			"expo-secure-store"

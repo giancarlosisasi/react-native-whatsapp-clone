@@ -15,7 +15,7 @@
 // NEW LUNE COLORS
 export const colors = {
 	// Primary Colors (replaces your old primary)
-	primary: '#705fbf', // Perfect match for your icon
+	primary: '#35247a', // Perfect match for your icon
 	primaryLight: '#8a9bff', // Keep this
 	primaryDark: '#4a5b8a', // Keep this
 
