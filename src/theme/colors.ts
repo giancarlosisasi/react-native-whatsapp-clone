@@ -15,9 +15,9 @@
 // NEW LUNE COLORS
 export const colors = {
 	// Primary Colors (replaces your old primary)
-	primary: '#667eea',
-	primaryLight: '#8a9bff',
-	primaryDark: '#4a5b8a',
+	primary: '#705fbf', // Perfect match for your icon
+	primaryLight: '#8a9bff', // Keep this
+	primaryDark: '#4a5b8a', // Keep this
 
 	// Muted/Secondary (replaces your old muted)
 	muted: '#6b7280',
