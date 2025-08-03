@@ -1,0 +1,19 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.2)"/>
+    </filter>
+  </defs>
+  
+  <!-- Background rounded rectangle -->
+  <rect width="120" height="120" rx="26" ry="26" fill="url(#gradient1)"/>
+  
+  <!-- Crescent moon -->
+  <path d="M60 35C46.2 35 35 46.2 35 60s11.2 25 25 25c13.8 0 25-11.2 25-25 0-2.4-0.3-4.7-0.9-6.9-3.8 7.8-11.8 13.2-21.1 13.2-12.9 0-23.3-10.4-23.3-23.3 0-9.3 5.4-17.3 13.2-21.1C50.7 35.3 48.4 35 45 35z" 
+        fill="white" 
+        filter="url(#shadow)"/>
+</svg>
