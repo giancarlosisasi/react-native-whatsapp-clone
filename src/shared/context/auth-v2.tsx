@@ -5,11 +5,15 @@ import {
 	makeRedirectUri,
 	useAuthRequest,
 } from 'expo-auth-session';
-import { createContext, useContext, useEffect, useState } from 'react';
 import {
-	AUTH_GOOGLE_OAUTH_LOGOUT_URL,
-	AUTH_GOOGLE_OAUTH_URL,
-} from '../constants/auth';
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from 'react';
+import { AUTH_GOOGLE_OAUTH_URL } from '../constants/auth';
+import { asyncAuthStorage } from '../storage/auth-storage';
 
 type TAuthUser = {
 	id: string;
@@ -21,11 +25,12 @@ type TAuthUser = {
 };
 
 type TAuthContext = {
-	user: TAuthUser | null;
+	user: TAuthUser | undefined;
 	isLoading: boolean;
-	error: Error | null;
+	error: Error | undefined;
 	signin: () => Promise<void>;
 	signout: () => Promise<void>;
+	saveAuthToken: (token: string) => Promise<void>;
 };
 
 const AuthContext = createContext<TAuthContext | undefined>(undefined);
@@ -44,34 +49,45 @@ const config: AuthRequestConfig = {
 
 const discovery = {
 	authorizationEndpoint: AUTH_GOOGLE_OAUTH_URL,
-	// tokenEndpoint: AUTH_GOOGLE_OAUTH_URL,
-	// revocationEndpoint: AUTH_GOOGLE_OAUTH_LOGOUT_URL,
 };
 
-// https://golang-whatsapp-clone.vercel.app/chats
-console.log('config', { config, discovery });
-
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const [user, setUser] = useState<TAuthUser | null>(null);
+	const [user, setUser] = useState<TAuthUser | undefined>(undefined);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<Error | null>(null);
+	const [error, setError] = useState<Error | undefined>(undefined);
+	const [authToken, setAuthToken] = useState<string | undefined>(undefined);
 
-	const [request, response, promptAsync] = useAuthRequest(config, discovery);
+	const [_, __, promptAsync] = useAuthRequest(config, discovery);
 
 	useEffect(() => {
-		if (response?.type === 'success') {
-			console.log({ response: JSON.stringify(response, null, 2) });
-		}
-	}, [response]);
+		const getAuthToken = async () => {
+			const token = await asyncAuthStorage.getAuthToken();
+
+			console.log('token', token);
+		};
+
+		getAuthToken();
+	}, []);
 
 	const signin = async () => {
 		promptAsync();
 	};
 
-	const signout = async () => {};
+	const signout = async () => {
+		await asyncAuthStorage.removeAuthToken();
+		setUser(undefined);
+		setAuthToken(undefined);
+	};
+
+	const saveAuthToken = useCallback(async (token: string) => {
+		await asyncAuthStorage.setAuthToken(token);
+		setAuthToken(token);
+	}, []);
 
 	return (
-		<AuthContext.Provider value={{ user, isLoading, error, signin, signout }}>
+		<AuthContext.Provider
+			value={{ user, isLoading, error, signin, signout, saveAuthToken }}
+		>
 			{children}
 		</AuthContext.Provider>
 	);

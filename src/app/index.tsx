@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
 	ActivityIndicator,
@@ -16,22 +16,22 @@ import welcomeImage from '../../assets/images/welcome.png';
 
 export default function Index() {
 	const [view, setView] = useState<'login' | 'welcome'>('welcome');
-	const { isLoading, user } = useAuth();
+	// const { isLoading, user } = useAuth();
 	const router = useRouter();
 
-	useEffect(() => {
-		if (!isLoading && user) {
-			router.replace('/(tabs)/chats');
-		}
-	}, [isLoading, user, router]);
+	// useEffect(() => {
+	// 	if (!isLoading && user) {
+	// 		router.replace('/(tabs)/chats');
+	// 	}
+	// }, [isLoading, user, router]);
 
-	if (isLoading) {
-		return (
-			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-				<ActivityIndicator color={colors.primary} />
-			</View>
-		);
-	}
+	// if (isLoading) {
+	// 	return (
+	// 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+	// 			<ActivityIndicator color={colors.primary} />
+	// 		</View>
+	// 	);
+	// }
 
 	if (view === 'login') {
 		return <LoginForm />;
@@ -57,11 +57,12 @@ export default function Index() {
 				</Text>
 				.
 			</Text>
-			{/* <Link href='/sign-in' asChild replace> */}
+			{/* <Link href='/(tabs)/chats' asChild> */}
 			<TouchableOpacity
 				style={styles.button}
 				onPress={() => {
-					setView('login');
+					// setView('login');
+					router.replace('/(tabs)/chats');
 				}}
 			>
 				<Text style={styles.buttonText}>Agree & Continue</Text>

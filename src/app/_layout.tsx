@@ -20,8 +20,7 @@ function InitialLayout() {
 	// const segments = useSegments();
 
 	// const { isLoaded, isSignedIn } = useAuth();
-	const { isLoading, user } = useAuth();
-	console.log('user', { isLoading, user });
+	// const { isLoading, user } = useAuth();
 
 	// useEffect(() => {
 	// 	if (!isLoading) {
@@ -61,22 +60,21 @@ function InitialLayout() {
 	// }
 
 	return (
-		<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-			<Stack>
-				<Stack.Screen name='auth/[token]' options={{ headerShown: false }} />
-				{/* <Stack.Protected guard={!user}> */}
-				<Stack.Screen
-					name='index'
-					options={{
-						headerShown: false,
-					}}
-				/>
-				<Stack.Screen name='sign-in' options={{ headerShown: false }} />
-				{/* </Stack.Protected> */}
-				{/* <Stack.Protected guard={!!user}> */}
-				<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-				{/* </Stack.Protected> */}
-				{/* <Stack.Screen
+		<Stack>
+			<Stack.Screen name='auth/[token]' options={{ headerShown: false }} />
+			{/* <Stack.Protected guard={!user}> */}
+			<Stack.Screen
+				name='index'
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Stack.Screen name='sign-in' options={{ headerShown: false }} />
+			{/* </Stack.Protected> */}
+			{/* <Stack.Protected guard={!!user}> */}
+			<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+			{/* </Stack.Protected> */}
+			{/* <Stack.Screen
 					name='otp'
 					options={{
 						headerTitle: 'Enter Your Phone Number',
@@ -92,17 +90,16 @@ function InitialLayout() {
 						headerBackTitle: 'Edit number',
 					}}
 				/> */}
-			</Stack>
-		</SafeAreaProvider>
+		</Stack>
 	);
 }
 
 export default function RootLayout() {
 	return (
-		// <ClerkProvider tokenCache={tokenCache}>
-		<AuthProvider>
-			<InitialLayout />
-		</AuthProvider>
-		// </ClerkProvider>
+		<SafeAreaProvider initialMetrics={initialWindowMetrics}>
+			<AuthProvider>
+				<InitialLayout />
+			</AuthProvider>
+		</SafeAreaProvider>
 	);
 }

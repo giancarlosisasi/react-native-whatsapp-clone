@@ -1,11 +1,42 @@
-import { useLocalSearchParams } from 'expo-router';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useEffect } from 'react';
+import { ActivityIndicator, Alert, Text, View } from 'react-native';
+import { useAuth } from '@/shared/context/auth-v2';
 import { colors } from '@/theme/colors';
 
 export default function AuthToken() {
-	const { token } = useLocalSearchParams();
+	const { token } = useLocalSearchParams<{ token: string }>();
+	const router = useRouter();
+	const { saveAuthToken } = useAuth();
 
-	console.log('token', token);
+	console.log('auth token page');
+
+	useEffect(() => {
+		const processAuthToken = async (token: string) => {
+			if (token) {
+				try {
+					await saveAuthToken(token);
+					router.replace('/(tabs)/chats');
+				} catch (error) {
+					console.error(error);
+					Alert.alert(
+						'Ups! Ocurrió un error',
+						'El proceso de autenticación falló. Por favor, intenta nuevamente.',
+						[
+							{
+								text: 'Reintentar',
+								onPress: () => {
+									router.push('/');
+								},
+							},
+						],
+					);
+				}
+			}
+		};
+
+		processAuthToken(token);
+	}, [token, router, saveAuthToken]);
 
 	return (
 		<View

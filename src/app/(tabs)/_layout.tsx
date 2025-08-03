@@ -1,22 +1,22 @@
-import { MaterialIcons } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors } from '@/theme/colors';
 
-export default function TabsLayout() {
+export default function TabLayout() {
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
-			<Tabs>
-				<Tabs.Screen
-					name='chats'
-					options={{
-						headerShown: false,
-						tabBarShowLabel: false,
-						tabBarIcon: ({ color, size }) => (
-							<MaterialIcons name='chat' color={color} size={size} />
-						),
-					}}
-				/>
-			</Tabs>
-		</SafeAreaView>
+		<Tabs screenOptions={{ headerShown: false }}>
+			<Tabs.Screen
+				name='chats'
+				options={{
+					title: 'Chats',
+					tabBarShowLabel: false,
+					tabBarActiveTintColor: colors.primary,
+					tabBarInactiveTintColor: colors.gray,
+					tabBarIcon: ({ color }) => (
+						<FontAwesome size={28} name='comments' color={color} />
+					),
+				}}
+			/>
+		</Tabs>
 	);
 }

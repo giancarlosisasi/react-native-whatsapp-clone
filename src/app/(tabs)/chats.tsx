@@ -30,7 +30,7 @@ export default function Chats() {
 	return (
 		<View style={styles.container}>
 			<Text>chats page!</Text>
-			<Text>{user.id}</Text>
+			{/* <Text>{user.id}</Text>
 			<Text>{user.email}</Text>
 			<Text>{user.name}</Text>
 			<Text>{user.avatarUrl}</Text>
@@ -41,7 +41,7 @@ export default function Chats() {
 				onPress={() => {
 					signout();
 				}}
-			/>
+			/> */}
 		</View>
 	);
 }
