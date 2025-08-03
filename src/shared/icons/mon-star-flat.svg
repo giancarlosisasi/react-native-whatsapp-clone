@@ -1,0 +1,19 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.2)"/>
+    </filter>
+  </defs>
+  
+  <!-- Background rounded rectangle with flat color -->
+  <rect width="120" height="120" rx="26" ry="26" fill="#705fbf"/>
+  
+  <!-- Crescent moon -->
+  <path d="M60 40C48.95 40 40 48.95 40 60s8.95 20 20 20c11.05 0 20-8.95 20-20 0-1.8-0.24-3.54-0.69-5.2-2.87 5.9-8.9 10-15.96 10-9.75 0-17.65-7.9-17.65-17.65 0-7.06 4.1-13.09 10-15.96C54.04 40.24 52.3 40 50.5 40z" 
+        fill="white" 
+        filter="url(#shadow)"/>
+  
+  <!-- Star -->
+  <circle cx="72" cy="48" r="3" fill="white" opacity="0.9"/>
+  <path d="M72 44l1 2h2l-1.5 1.5L74 50l-2-1-2 1 0.5-2.5L69 46h2z" fill="white" opacity="0.8"/>
+</svg>
