@@ -1,15 +1,9 @@
-import {
-	createContext,
-	useCallback,
-	useContext,
-	useEffect,
-	useState,
-} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { Environment, type FetchFunction, Network } from 'relay-runtime';
 import { FullScreenActivityIndicator } from '../components/full-screen-activity-indicator';
-import { asyncAuthStorage } from '../storage/auth-storage';
+import { useAuthToken } from './auth-token';
 
 const HTTP_ENDPOINT = process.env.EXPO_PUBLIC_GRAPHQL_API_ENDPOINT;
 
@@ -17,15 +11,9 @@ if (!HTTP_ENDPOINT) {
 	throw new Error('EXPO_PUBLIC_GRAPHQL_API_ENDPOINT is not set');
 }
 
-const context = createContext<
-	| {
-			setupRelayEnvironment: (authToken?: string) => Promise<void>;
-			relayEnvironment: Environment;
-	  }
-	| undefined
->(undefined);
-
 export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
+	const { authToken } = useAuthToken();
+
 	const [loading, setLoading] = useState(true);
 	const [relayEnvironment, setRelayEnvironment] = useState<
 		Environment | undefined
@@ -69,14 +57,10 @@ export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
 		setLoading(false);
 	}, []);
 
+	// the auth token will only change when a new user session is created (user logs in)
 	useEffect(() => {
-		const setup = async () => {
-			const authToken = await asyncAuthStorage.getAuthToken();
-			await setupRelayEnvironment(authToken);
-		};
-
-		setup();
-	}, [setupRelayEnvironment]);
+		setupRelayEnvironment(authToken);
+	}, [setupRelayEnvironment, authToken]);
 
 	if (loading) {
 		return <FullScreenActivityIndicator />;
@@ -93,19 +77,7 @@ export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<RelayEnvironmentProvider environment={relayEnvironment}>
-			<context.Provider value={{ setupRelayEnvironment, relayEnvironment }}>
-				{children}
-			</context.Provider>
+			{children}
 		</RelayEnvironmentProvider>
 	);
-};
-
-export const useRelay = () => {
-	const relayContext = useContext(context);
-
-	if (typeof relayContext === 'undefined') {
-		throw new Error('useRelay must be used within a RelayProvider');
-	}
-
-	return relayContext;
 };

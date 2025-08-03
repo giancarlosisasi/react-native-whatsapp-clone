@@ -1,14 +1,14 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { ActivityIndicator, Alert, Text, View } from 'react-native';
-import { useRelay } from '@/shared/context/relay';
-import { asyncAuthStorage } from '@/shared/storage/auth-storage';
+import { useAuthToken } from '@/shared/context/auth-token';
 import { colors } from '@/theme/colors';
 
 export default function AuthToken() {
 	const { token } = useLocalSearchParams<{ token: string }>();
 	const router = useRouter();
-	const { setupRelayEnvironment } = useRelay();
+
+	const { saveAuthToken } = useAuthToken();
 
 	const failedToProcessToken = useCallback(() => {
 		() => {
@@ -28,12 +28,10 @@ export default function AuthToken() {
 	}, [router]);
 
 	useEffect(() => {
-		console.log('auth token page - processing auth token', { token });
 		const processAuthToken = async (token: string) => {
 			if (token) {
 				try {
-					await asyncAuthStorage.setAuthToken(token);
-					await setupRelayEnvironment(token);
+					await saveAuthToken(token);
 					router.replace('/(tabs)/chats');
 				} catch (error) {
 					console.error(error);
@@ -45,7 +43,7 @@ export default function AuthToken() {
 		};
 
 		processAuthToken(token);
-	}, [token, router, setupRelayEnvironment, failedToProcessToken]);
+	}, [token, router, saveAuthToken, failedToProcessToken]);
 
 	return (
 		<View

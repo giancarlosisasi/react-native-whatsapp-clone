@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { AuthProvider } from '@/shared/context/auth-relay';
+import { AuthProvider } from '@/shared/context/auth';
 
 // prevent the splash screen from auto-hiding before asset loading is complete
 SplashScreen.preventAutoHideAsync();
@@ -12,6 +12,7 @@ import {
 } from 'react-native-safe-area-context';
 import { FullScreenActivityIndicator } from '@/shared/components/full-screen-activity-indicator';
 import { RootErrorBoundary } from '@/shared/components/root-error-boundary';
+import { AuthTokenProvider } from '@/shared/context/auth-token';
 import { RelayProvider } from '@/shared/context/relay';
 
 function InitialLayout() {
@@ -35,11 +36,13 @@ export default function RootLayout() {
 		<RootErrorBoundary>
 			<SafeAreaProvider initialMetrics={initialWindowMetrics}>
 				<Suspense fallback={<FullScreenActivityIndicator />}>
-					<RelayProvider>
-						<AuthProvider>
-							<InitialLayout />
-						</AuthProvider>
-					</RelayProvider>
+					<AuthTokenProvider>
+						<RelayProvider>
+							<AuthProvider>
+								<InitialLayout />
+							</AuthProvider>
+						</RelayProvider>
+					</AuthTokenProvider>
 				</Suspense>
 			</SafeAreaProvider>
 		</RootErrorBoundary>

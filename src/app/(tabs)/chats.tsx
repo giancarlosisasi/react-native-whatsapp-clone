@@ -5,7 +5,7 @@ import {
 	Text,
 	View,
 } from 'react-native';
-import { useAuth } from '@/shared/context/auth-relay';
+import { useAuth } from '@/shared/context/auth';
 import { colors } from '@/theme/colors';
 
 export default function Chats() {
@@ -32,7 +32,7 @@ export default function Chats() {
 	return (
 		<View style={styles.container}>
 			<Text>chats page!</Text>
-			{/* <Text>{user.id}</Text>
+			<Text>{user.id}</Text>
 			<Text>{user.email}</Text>
 			<Text>{user.name}</Text>
 			<Text>{user.avatarUrl}</Text>
@@ -43,7 +43,7 @@ export default function Chats() {
 				onPress={() => {
 					signout();
 				}}
-			/> */}
+			/>
 		</View>
 	);
 }
