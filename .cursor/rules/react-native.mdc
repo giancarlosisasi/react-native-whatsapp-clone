@@ -1,0 +1,377 @@
+---
+alwaysApply: true
+---
+
+# Cursor Rules for React Native + Expo + Relay Project
+
+## Project Context
+This is a React Native project using:
+- Expo framework and SDK
+- Expo Router for navigation
+- React Relay for GraphQL data fetching
+- TypeScript
+- Expo modules (icons, blur, crypto, etc.)
+- Clerk for authentication
+- Biome for linting and formatting
+
+## File Naming Convention
+- ALWAYS use kebab-case for file names and directories
+- Examples: `auth-token.tsx`, `full-screen-activity-indicator.tsx`, `root-error-boundary.tsx`
+- Never use camelCase or PascalCase for file names
+- Use descriptive, semantic names
+
+## Code Style and Best Practices
+
+### React Native + Expo
+- Use Expo modules instead of React Native core modules when available
+- Import from `@expo/vector-icons` for icons
+- Use `expo-router` for navigation instead of React Navigation directly
+- Use `expo-constants`, `expo-secure-store`, `expo-splash-screen` for platform features
+- Use `react-native-safe-area-context` for safe area handling
+- Use `react-native-gesture-handler` and `react-native-reanimated` for animations
+
+### Relay Integration
+- Always use Relay for data fetching, never direct GraphQL calls
+- Use `useFragment`, `useQuery`, `useMutation` hooks from React Relay
+- Generate types with Relay compiler
+- Use `@relay` directives in GraphQL queries
+- Follow Relay best practices for data fetching and caching
+
+### TypeScript
+- Use strict TypeScript configuration
+- Define proper types for all components and functions
+- Use `@/` alias for imports from src directory
+- Prefer interfaces over types for object shapes
+- Use proper typing for Relay fragments and queries
+
+### Component Structure
+- Use functional components with hooks
+- Implement proper error boundaries
+- Use Suspense for loading states
+- Follow React Native performance best practices
+- Use proper memoization with `useMemo` and `useCallback`
+
+### File Organization
+- Keep components in `src/shared/components/`
+- Keep context providers in `src/shared/context/`
+- Keep utilities in `src/shared/utils/`
+- Keep constants in `src/shared/constants/`
+- Use feature-based organization in `src/views/`
+- Use Expo Router file-based routing in `src/app/`
+
+### Import Patterns
+```typescript
+// Expo modules
+import { Ionicons } from '@expo/vector-icons';
+import * as SecureStore from 'expo-secure-store';
+import { BlurView } from 'expo-blur';
+
+// React Native
+import { View, Text, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+// Relay
+import { useFragment, useQuery } from 'react-relay';
+import type { ComponentNameFragment$key } from './__generated__/ComponentNameFragment.graphql';
+
+// Internal imports with @ alias
+import { SomeComponent } from '@/shared/components/some-component';
+```
+
+### Authentication (Clerk)
+- Use Clerk for authentication
+- Implement proper auth flows with Clerk components
+- Use secure storage for tokens
+- Handle auth state properly with Relay
+
+### Styling
+- Use React Native StyleSheet for styling
+- Follow mobile-first design principles
+- Use proper color schemes and theming
+- Implement responsive design for different screen sizes
+
+### Performance
+- Use React Native performance optimizations
+- Implement proper list virtualization
+- Use proper image optimization with expo-image
+- Minimize re-renders with proper memoization
+
+### Testing and Quality
+- Use Biome for linting and formatting
+- Follow the existing code style in the project
+- Use proper error handling and loading states
+- Implement proper accessibility features
+
+## Common Patterns
+
+### Relay Fragment Component
+```typescript
+import { useFragment } from 'react-relay';
+import type { ComponentNameFragment$key } from './__generated__/ComponentNameFragment.graphql';
+
+interface Props {
+  data: ComponentNameFragment$key;
+}
+
+export function ComponentName({ data }: Props) {
+  const fragmentData = useFragment(FRAGMENT, data);
+  
+  return (
+    <View>
+      {/* Component content */}
+    </View>
+  );
+}
+
+const FRAGMENT = graphql`
+  fragment ComponentNameFragment on Type {
+    id
+    field
+  }
+`;
+```
+
+### Expo Router Screen
+```typescript
+import { View, Text } from 'react-native';
+import { Stack } from 'expo-router';
+
+export default function ScreenName() {
+  return (
+    <View>
+      <Stack.Screen 
+        name="screen-name" 
+        options={{ 
+          title: 'Screen Title',
+          headerShown: true 
+        }} 
+      />
+      <Text>Screen content</Text>
+    </View>
+  );
+}
+```
+
+### Context Provider
+```typescript
+import { createContext, useContext, ReactNode } from 'react';
+
+interface ContextType {
+  // context properties
+}
+
+const Context = createContext<ContextType | null>(null);
+
+export function Provider({ children }: { children: ReactNode }) {
+  // provider logic
+  
+  return (
+    <Context.Provider value={value}>
+      {children}
+    </Context.Provider>
+  );
+}
+
+export function useContext() {
+  const context = useContext(Context);
+  if (!context) {
+    throw new Error('useContext must be used within Provider');
+  }
+  return context;
+}
+```
+
+## Avoid
+- Don't use deprecated React Native APIs
+- Don't use direct GraphQL calls (use Relay)
+- Don't use camelCase for file names
+- Don't import from relative paths when @ alias is available
+- Don't use inline styles (use StyleSheet)
+- Don't forget proper TypeScript types
+- Don't ignore Relay compiler warnings # Cursor Rules for React Native + Expo + Relay Project
+
+## Project Context
+This is a React Native project using:
+- Expo framework and SDK
+- Expo Router for navigation
+- React Relay for GraphQL data fetching
+- TypeScript
+- Expo modules (icons, blur, crypto, etc.)
+- Clerk for authentication
+- Biome for linting and formatting
+
+## File Naming Convention
+- ALWAYS use kebab-case for file names and directories
+- Examples: `auth-token.tsx`, `full-screen-activity-indicator.tsx`, `root-error-boundary.tsx`
+- Never use camelCase or PascalCase for file names
+- Use descriptive, semantic names
+
+## Code Style and Best Practices
+
+### React Native + Expo
+- Use Expo modules instead of React Native core modules when available
+- Import from `@expo/vector-icons` for icons
+- Use `expo-router` for navigation instead of React Navigation directly
+- Use `expo-constants`, `expo-secure-store`, `expo-splash-screen` for platform features
+- Use `react-native-safe-area-context` for safe area handling
+- Use `react-native-gesture-handler` and `react-native-reanimated` for animations
+
+### Relay Integration
+- Always use Relay for data fetching, never direct GraphQL calls
+- Use `useFragment`, `useQuery`, `useMutation` hooks from React Relay
+- Generate types with Relay compiler
+- Use `@relay` directives in GraphQL queries
+- Follow Relay best practices for data fetching and caching
+
+### TypeScript
+- Use strict TypeScript configuration
+- Define proper types for all components and functions
+- Use `@/` alias for imports from src directory
+- Prefer interfaces over types for object shapes
+- Use proper typing for Relay fragments and queries
+
+### Component Structure
+- Use functional components with hooks
+- Implement proper error boundaries
+- Use Suspense for loading states
+- Follow React Native performance best practices
+- Use proper memoization with `useMemo` and `useCallback`
+
+### File Organization
+- Keep components in `src/shared/components/`
+- Keep context providers in `src/shared/context/`
+- Keep utilities in `src/shared/utils/`
+- Keep constants in `src/shared/constants/`
+- Use feature-based organization in `src/views/`
+- Use Expo Router file-based routing in `src/app/`
+
+### Import Patterns
+```typescript
+// Expo modules
+import { Ionicons } from '@expo/vector-icons';
+import * as SecureStore from 'expo-secure-store';
+import { BlurView } from 'expo-blur';
+
+// React Native
+import { View, Text, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+// Relay
+import { useFragment, useQuery } from 'react-relay';
+import type { ComponentNameFragment$key } from './__generated__/ComponentNameFragment.graphql';
+
+// Internal imports with @ alias
+import { SomeComponent } from '@/shared/components/some-component';
+```
+
+### Authentication (Clerk)
+- Use Clerk for authentication
+- Implement proper auth flows with Clerk components
+- Use secure storage for tokens
+- Handle auth state properly with Relay
+
+### Styling
+- Use React Native StyleSheet for styling
+- Follow mobile-first design principles
+- Use proper color schemes and theming
+- Implement responsive design for different screen sizes
+
+### Performance
+- Use React Native performance optimizations
+- Implement proper list virtualization
+- Use proper image optimization with expo-image
+- Minimize re-renders with proper memoization
+
+### Testing and Quality
+- Use Biome for linting and formatting
+- Follow the existing code style in the project
+- Use proper error handling and loading states
+- Implement proper accessibility features
+
+## Common Patterns
+
+### Relay Fragment Component
+```typescript
+import { useFragment } from 'react-relay';
+import type { ComponentNameFragment$key } from './__generated__/ComponentNameFragment.graphql';
+
+interface Props {
+  data: ComponentNameFragment$key;
+}
+
+export function ComponentName({ data }: Props) {
+  const fragmentData = useFragment(FRAGMENT, data);
+  
+  return (
+    <View>
+      {/* Component content */}
+    </View>
+  );
+}
+
+const FRAGMENT = graphql`
+  fragment ComponentNameFragment on Type {
+    id
+    field
+  }
+`;
+```
+
+### Expo Router Screen
+```typescript
+import { View, Text } from 'react-native';
+import { Stack } from 'expo-router';
+
+export default function ScreenName() {
+  return (
+    <View>
+      <Stack.Screen 
+        name="screen-name" 
+        options={{ 
+          title: 'Screen Title',
+          headerShown: true 
+        }} 
+      />
+      <Text>Screen content</Text>
+    </View>
+  );
+}
+```
+
+### Context Provider
+```typescript
+import { createContext, useContext, ReactNode } from 'react';
+
+interface ContextType {
+  // context properties
+}
+
+const Context = createContext<ContextType | null>(null);
+
+export function Provider({ children }: { children: ReactNode }) {
+  // provider logic
+  
+  return (
+    <Context.Provider value={value}>
+      {children}
+    </Context.Provider>
+  );
+}
+
+export function useContext() {
+  const context = useContext(Context);
+  if (!context) {
+    throw new Error('useContext must be used within Provider');
+  }
+  return context;
+}
+```
+
+## Avoid
+- Don't use deprecated React Native APIs
+- Don't use direct GraphQL calls (use Relay)
+- Don't use camelCase for file names
+- Don't import from relative paths when @ alias is available
+- Don't use inline styles (use StyleSheet)
+- Don't forget proper TypeScript types
+- Don't ignore Relay compiler warnings 
