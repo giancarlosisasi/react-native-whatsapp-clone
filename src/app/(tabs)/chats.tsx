@@ -11,8 +11,6 @@ import { colors } from '@/theme/colors';
 export default function Chats() {
 	const { user, isLoading, signout } = useAuth();
 
-	// console.log('chats page - user', { user, isLoading });
-
 	if (isLoading) {
 		return (
 			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

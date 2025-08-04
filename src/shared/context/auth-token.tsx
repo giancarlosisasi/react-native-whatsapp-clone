@@ -65,6 +65,7 @@ export const AuthTokenProvider = ({
 	}, []);
 
 	const removeAuthToken = useCallback(async () => {
+		console.log('[context/auth-token] - removeAuthToken called');
 		setAuthToken(undefined);
 		await asyncAuthStorage.removeAuthToken();
 	}, []);

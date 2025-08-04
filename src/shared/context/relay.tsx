@@ -3,13 +3,8 @@ import { Text, View } from 'react-native';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { Environment, type FetchFunction, Network } from 'relay-runtime';
 import { FullScreenActivityIndicator } from '../components/full-screen-activity-indicator';
+import { API_ENDPOINT } from '../constants/api-endpoints';
 import { useAuthToken } from './auth-token';
-
-const HTTP_ENDPOINT = process.env.EXPO_PUBLIC_GRAPHQL_API_ENDPOINT;
-
-if (!HTTP_ENDPOINT) {
-	throw new Error('EXPO_PUBLIC_GRAPHQL_API_ENDPOINT is not set');
-}
 
 export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
 	const { authToken } = useAuthToken();
@@ -30,9 +25,10 @@ export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
 				headers.Authorization = `Bearer ${authToken}`;
 			}
 
-			const resp = await fetch(HTTP_ENDPOINT, {
+			const resp = await fetch(API_ENDPOINT, {
 				method: 'POST',
 				headers,
+				credentials: 'include',
 				body: JSON.stringify({ query: request.text, variables }),
 			});
 

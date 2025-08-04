@@ -7,7 +7,13 @@ import { useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { graphql, useLazyLoadQuery } from 'react-relay';
-import { AUTH_GOOGLE_OAUTH_URL } from '../constants/auth';
+import { AUTH_LOGOUT_URL } from '../constants/api-endpoints';
+import {
+	AUTH_CLIENT_TYPE,
+	AUTH_GOOGLE_OAUTH_URL,
+	AUTH_GOOGLE_OAUTH_URL_WEB,
+} from '../constants/auth';
+import { isMobile } from '../constants/platform';
 import type { authV2GetMeQuery } from './__generated__/authV2GetMeQuery.graphql';
 import { useAuthToken } from './auth-token';
 
@@ -23,12 +29,6 @@ type TAuthContext = {
 
 const AuthContext = createContext<TAuthContext | undefined>(undefined);
 
-const HTTP_ENDPOINT = process.env.EXPO_PUBLIC_GRAPHQL_API_ENDPOINT;
-
-if (!HTTP_ENDPOINT) {
-	throw new Error('EXPO_PUBLIC_GRAPHQL_API_ENDPOINT is not set');
-}
-
 const config: AuthRequestConfig = {
 	clientId: 'google',
 	scopes: [],
@@ -37,7 +37,7 @@ const config: AuthRequestConfig = {
 		path: 'chats',
 	}),
 	extraParams: {
-		client_type: 'mobile',
+		client_type: AUTH_CLIENT_TYPE,
 	},
 };
 
@@ -80,12 +80,30 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	}, []);
 
 	const signin = async () => {
-		promptAsync();
+		if (isMobile) {
+			await promptAsync();
+			return;
+		}
+
+		// web
+		window.location.href = AUTH_GOOGLE_OAUTH_URL_WEB;
 	};
 
 	const signout = async () => {
-		await removeAuthToken();
-		router.replace('/');
+		if (isMobile) {
+			console.log('[Native] - [context/auth] - signout called');
+			await removeAuthToken();
+			router.replace('/');
+			return;
+		}
+
+		// in web, we must make a GET request to the logout url
+		console.log('[Web] - [context/auth] - signout called', { AUTH_LOGOUT_URL });
+		// this will clear the auth cookies
+		await fetch(AUTH_LOGOUT_URL, {
+			method: 'GET',
+		});
+		window.location.href = '/';
 	};
 
 	return (
