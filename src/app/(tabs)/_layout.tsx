@@ -23,6 +23,13 @@ export default function TabLayout() {
 				}}
 			>
 				<Tabs.Screen
+					name='index'
+					options={{
+						headerShown: false,
+						href: null,
+					}}
+				/>
+				<Tabs.Screen
 					name='updates'
 					options={{
 						title: 'Updates',
