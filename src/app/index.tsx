@@ -18,7 +18,7 @@ export default function Index() {
 	return (
 		<View style={styles.container}>
 			<Image source={welcomeImage} style={styles.welcomeImage} />
-			<Text style={styles.headline}>Welcome to whatsapp clone</Text>
+			<Text style={styles.headline}>Welcome to Luna</Text>
 
 			<Text style={styles.description}>
 				Read our{' '}

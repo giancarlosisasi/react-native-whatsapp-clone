@@ -1,16 +1,16 @@
 {
 	"expo": {
-		"name": "whatstappgio",
-		"slug": "whatstappgio",
+		"name": "luna",
+		"slug": "luna",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
-		"scheme": "whatstappgio",
+		"scheme": "luna",
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.giancarlosio.whatstappgio",
+			"bundleIdentifier": "com.giancarlosio.luna",
 			"config": {
 				"usesNonExemptEncryption": false
 			}
@@ -21,7 +21,7 @@
 				"backgroundColor": "#35247a"
 			},
 			"edgeToEdgeEnabled": true,
-			"package": "com.giancarlosio.whatstappgio"
+			"package": "com.giancarlosio.luna"
 		},
 		"web": {
 			"bundler": "metro",
