@@ -33,7 +33,7 @@ const config: AuthRequestConfig = {
 	clientId: 'google',
 	scopes: [],
 	redirectUri: makeRedirectUri({
-		scheme: 'whatstappgio',
+		scheme: 'luna',
 		path: 'chats',
 	}),
 	extraParams: {

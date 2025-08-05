@@ -42,6 +42,7 @@ export default function TabLayout() {
 					name='calls'
 					options={{
 						title: 'Calls',
+						headerShown: false,
 						tabBarIcon: ({ color, size }) => (
 							<MaterialCommunityIcons
 								size={size}
