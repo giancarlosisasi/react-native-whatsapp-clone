@@ -87,9 +87,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.giancarlosio.whatstappgio'
+    namespace 'com.giancarlosio.luna'
     defaultConfig {
-        applicationId 'com.giancarlosio.whatstappgio'
+        applicationId 'com.giancarlosio.luna'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
