@@ -15,9 +15,9 @@
 // NEW LUNE COLORS
 export const colors = {
 	// Primary Colors (replaces your old primary)
-	primary: '#35247a', // Perfect match for your icon
-	primaryLight: '#8a9bff', // Keep this
-	primaryDark: '#4a5b8a', // Keep this
+	primary: '#7c3aed', // Perfect match for your icon
+	primaryLight: '#c4b5fd', // Keep this
+	primaryDark: '#6d28d9', // Keep this
 
 	// Muted/Secondary (replaces your old muted)
 	muted: '#6b7280',
@@ -54,6 +54,7 @@ export const colors = {
 
 	// White (unchanged)
 	white: '#ffffff',
+	black: '#000000',
 
 	// User Status
 	online: '#10b981',
