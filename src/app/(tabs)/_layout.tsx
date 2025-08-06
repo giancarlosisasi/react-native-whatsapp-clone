@@ -1,11 +1,13 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Tabs } from 'expo-router';
+import { Tabs, useSegments } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { colors } from '@/theme/colors';
 
 export default function TabLayout() {
+	const segments = useSegments();
+
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
 			<Tabs
@@ -69,6 +71,11 @@ export default function TabLayout() {
 						tabBarIcon: ({ color }) => (
 							<Ionicons size={28} name='chatbubbles' color={color} />
 						),
+						tabBarStyle: {
+							backgroundColor: colors.background,
+							// @ts-expect-error there is a bug in the useSegment types
+							display: segments[2] === '[id]' ? 'none' : 'flex',
+						},
 					}}
 				/>
 				<Tabs.Screen

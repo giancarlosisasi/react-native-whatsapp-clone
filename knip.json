@@ -25,7 +25,7 @@
 		"react-dom",
 		"react-native-confirmation-code-field",
 		"react-native-mask-text",
-		"graphql",
+		"graphql"
 	],
 	"ignoreUnresolved": ["babel-preset-expo"],
 	"ignoreBinaries": ["graphql-inspector"]

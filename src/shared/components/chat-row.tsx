@@ -88,7 +88,15 @@ export const ChatRow = ({
 			)}
 			rightThreshold={50}
 		>
-			<Link href='/(tabs)/calls' asChild>
+			<Link
+				href={{
+					pathname: '/(tabs)/chats/[id]',
+					params: {
+						id: id,
+					},
+				}}
+				asChild
+			>
 				<TouchableHighlight
 					activeOpacity={0.6}
 					underlayColor={colors.lightGray}
