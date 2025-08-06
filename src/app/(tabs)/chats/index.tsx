@@ -1,15 +1,7 @@
 import { useState } from 'react';
-import {
-	ActivityIndicator,
-	Button,
-	FlatList,
-	StyleSheet,
-	Text,
-	View,
-} from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ChatRow } from '@/shared/components/chat-row';
-import { useAuth } from '@/shared/context/auth';
 import { defaultStyles } from '@/shared/ui/default-styles';
 import { colors } from '@/theme/colors';
 import chatsData from '../../../../assets/data/chats.json';

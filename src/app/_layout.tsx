@@ -1,5 +1,7 @@
-import { Stack } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Link, Stack } from 'expo-router';
 import { Suspense } from 'react';
+import { TouchableOpacity } from 'react-native';
 import {
 	initialWindowMetrics,
 	SafeAreaProvider,
@@ -9,6 +11,7 @@ import { RootErrorBoundary } from '@/shared/components/root-error-boundary';
 import { AuthProvider, useAuth } from '@/shared/context/auth';
 import { AuthTokenProvider } from '@/shared/context/auth-token';
 import { RelayProvider } from '@/shared/context/relay';
+import { colors } from '@/theme/colors';
 
 function InitialLayout() {
 	const { user } = useAuth();
@@ -30,6 +33,35 @@ function InitialLayout() {
 
 			<Stack.Protected guard={isAuthenticated}>
 				<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+				<Stack.Screen
+					name='(modals)/new-chat'
+					options={{
+						presentation: 'modal',
+						title: 'New Chat',
+						headerTransparent: true,
+						headerBlurEffect: 'regular',
+						headerStyle: {
+							backgroundColor: colors.background,
+						},
+						headerSearchBarOptions: {
+							placeholder: 'Search name or number',
+							hideWhenScrolling: true,
+						},
+						headerRight: () => (
+							<Link href='/(tabs)/chats' asChild>
+								<TouchableOpacity
+									style={{
+										backgroundColor: colors.lightGray,
+										borderRadius: 20,
+										padding: 4,
+									}}
+								>
+									<Ionicons name='close' color={colors.gray} size={30} />
+								</TouchableOpacity>
+							</Link>
+						),
+					}}
+				/>
 			</Stack.Protected>
 		</Stack>
 	);

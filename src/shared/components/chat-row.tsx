@@ -8,9 +8,6 @@ import {
 	TouchableHighlight,
 	TouchableOpacity,
 } from 'react-native';
-import ReanimatedSwipeable, {
-	type SwipeableMethods,
-} from 'react-native-gesture-handler/ReanimatedSwipeable';
 import Reanimated, {
 	type SharedValue,
 	useAnimatedStyle,
@@ -18,8 +15,6 @@ import Reanimated, {
 import { View } from '@/shared/ui/base';
 import { colors } from '@/theme/colors';
 import SwipableRow from './swipable-row';
-
-const THRESHOLD = 100;
 
 type TChatRowProps = {
 	id: string;
