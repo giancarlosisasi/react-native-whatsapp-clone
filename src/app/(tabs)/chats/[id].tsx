@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { ImageBackground } from 'expo-image';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import {
 	Bubble,
@@ -166,11 +166,7 @@ export default function Chat() {
 				)}
 				renderMessage={(props) => {
 					return (
-						<ChatMessageBox
-							{...props}
-							setReplyOnSwipeOpen={onReplySwipeOpen}
-							currentMessageOnReply={replyMessage}
-						/>
+						<ChatMessageBox {...props} setReplyOnSwipeOpen={onReplySwipeOpen} />
 					);
 				}}
 				renderChatFooter={() => (

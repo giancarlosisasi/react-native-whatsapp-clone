@@ -70,8 +70,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			fetchKey: authToken,
 		},
 	);
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<Error | undefined>(undefined);
+	const [isLoading, _setIsLoading] = useState(false);
+	const [error, _setError] = useState<Error | undefined>(undefined);
 
 	const [_, __, promptAsync] = useAuthRequest(config, discovery);
 

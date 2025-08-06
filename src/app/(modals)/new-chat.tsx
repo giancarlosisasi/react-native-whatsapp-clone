@@ -60,7 +60,7 @@ export default function NewChat() {
 										}}
 									>
 										{item.desc.length > 40
-											? item.desc.slice(0, 40) + '...'
+											? `${item.desc.slice(0, 40)}...`
 											: item.desc}
 									</Text>
 								</View>

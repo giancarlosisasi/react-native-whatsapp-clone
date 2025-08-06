@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ReanimatedSwipeable, {

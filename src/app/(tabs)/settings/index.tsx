@@ -1,13 +1,11 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {
 	FlatList,
-	ImageBackgroundComponent,
 	ScrollView,
 	Text,
 	TouchableOpacity,
 	View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '@/shared/context/auth';
 import { BoxedIcon } from '@/shared/ui/boxed-icon';
 import { defaultStyles } from '@/shared/ui/default-styles';

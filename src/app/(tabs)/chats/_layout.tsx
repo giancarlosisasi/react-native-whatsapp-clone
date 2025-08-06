@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Image } from 'expo-image';
 import { Link, Stack } from 'expo-router';
-import { Platform, Text, Touchable, TouchableOpacity } from 'react-native';
+import { Platform, Text, TouchableOpacity } from 'react-native';
 import { View } from '@/shared/ui/base';
 import { colors } from '@/theme/colors';
 

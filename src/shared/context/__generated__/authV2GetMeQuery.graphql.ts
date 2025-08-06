@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
 export type authV2GetMeQuery$variables = Record<PropertyKey, never>;
 export type authV2GetMeQuery$data = {
 	readonly me:
@@ -28,7 +28,7 @@ export type authV2GetMeQuery = {
 	variables: authV2GetMeQuery$variables;
 };
 
-const node: ConcreteRequest = (function () {
+const node: ConcreteRequest = (() => {
 	var v0 = [
 		{
 			alias: null,

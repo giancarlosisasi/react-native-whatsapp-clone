@@ -7,7 +7,7 @@ import { colors } from '@/theme/colors';
 import chatsData from '../../../../assets/data/chats.json';
 
 export default function Chats() {
-	const [chats, setChats] = useState<typeof chatsData>(chatsData);
+	const [chats, _setChats] = useState<typeof chatsData>(chatsData);
 
 	return (
 		<ScrollView
@@ -29,4 +29,4 @@ export default function Chats() {
 	);
 }
 
-const styles = StyleSheet.create({});
+const _styles = StyleSheet.create({});
