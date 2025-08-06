@@ -65,20 +65,20 @@ export const colors = {
 	borderLight: '#f3f4f6',
 };
 
-// MIGRATION MAPPING (for easy replacement in your code)
-export const colorMigrationMap = {
-	// Old -> New mappings
-	'#1063FD': colors.primary, // Your old primary -> new primary purple
-	'#3A5A92': colors.muted, // Your old muted -> new muted gray
-	'#EFEEF6': colors.background, // Your old background -> new background
-	'#6E6E73': colors.gray, // Your old gray -> new gray
-	'#DCDCE2': colors.lightGray, // Your old lightGray -> new lightGray
-	'#4FEE57': colors.green, // Your old green -> new green
-	'#DBFFCB': colors.lightGreen, // Your old lightGreen -> new lightGreen
-	'#EF0827': colors.red, // Your old red -> new red
-	'#FCC70B': colors.yellow, // Your old yellow -> new yellow
-	'#FFFFFF': colors.white, // White stays the same
-};
+// // MIGRATION MAPPING (for easy replacement in your code)
+// export const colorMigrationMap = {
+// 	// Old -> New mappings
+// 	'#1063FD': colors.primary, // Your old primary -> new primary purple
+// 	'#3A5A92': colors.muted, // Your old muted -> new muted gray
+// 	'#EFEEF6': colors.background, // Your old background -> new background
+// 	'#6E6E73': colors.gray, // Your old gray -> new gray
+// 	'#DCDCE2': colors.lightGray, // Your old lightGray -> new lightGray
+// 	'#4FEE57': colors.green, // Your old green -> new green
+// 	'#DBFFCB': colors.lightGreen, // Your old lightGreen -> new lightGreen
+// 	'#EF0827': colors.red, // Your old red -> new red
+// 	'#FCC70B': colors.yellow, // Your old yellow -> new yellow
+// 	'#FFFFFF': colors.white, // White stays the same
+// };
 
 // GRADIENT HELPER (for buttons, headers, etc.)
 export const gradients = {

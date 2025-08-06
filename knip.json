@@ -16,14 +16,17 @@
 		"@react-navigation/native",
 		"expo-blur",
 		"expo-crypto",
-		"expo-haptics",
 		"expo-status-bar",
 		"expo-symbols",
 		"jose",
-		"react-native-gesture-handler",
 		"react-native-mask-input",
-		"@babel/core",
-		"expo-updates"
+		"expo-updates",
+		"expo-web-browser",
+		"react-dom",
+		"react-native-confirmation-code-field",
+		"react-native-mask-text",
+		"graphql",
 	],
-	"ignoreUnresolved": ["babel-preset-expo"]
+	"ignoreUnresolved": ["babel-preset-expo"],
+	"ignoreBinaries": ["graphql-inspector"]
 }

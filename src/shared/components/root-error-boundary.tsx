@@ -24,7 +24,7 @@ const FallbackComponent = (props: TFallbackComponentProps) => {
 	);
 };
 
-export type Props = PropsWithChildren<{
+type Props = PropsWithChildren<{
 	FallbackComponent: ComponentType<TFallbackComponentProps>;
 	onError?: (error: Error, stackTrace: string) => void;
 }>;

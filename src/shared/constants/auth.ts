@@ -22,10 +22,6 @@ export const AUTH_GOOGLE_OAUTH_URL =
 	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_URL;
 export const AUTH_GOOGLE_OAUTH_URL_WEB =
 	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_URL_WEB;
-// export const AUTH_GOOGLE_OAUTH_CALLBACK_URL =
-// 	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_CALLBACK_URL;
-export const AUTH_GOOGLE_OAUTH_LOGOUT_URL =
-	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_LOGOUT_URL;
 
 const getClientType = () => {
 	if (isMobile) {

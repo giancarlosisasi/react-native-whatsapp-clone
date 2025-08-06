@@ -37,7 +37,7 @@ const asyncStorageNative: IAsyncStorage = {
  * Localstorage wrapper for web.
  * This uses try-catch to handle cases where we can't access the storage.
  */
-export const asyncStorageWeb: IAsyncStorage = {
+const asyncStorageWeb: IAsyncStorage = {
 	getItem: (key) => {
 		try {
 			// use undefined as it's better than null
