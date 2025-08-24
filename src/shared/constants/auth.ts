@@ -18,10 +18,10 @@ import { isMobile } from './platform';
 // export const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
 // export const APP_SCHEME = process.env.EXPO_PUBLIC_SCHEME;
 
-export const AUTH_GOOGLE_OAUTH_URL =
-	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_URL;
-export const AUTH_GOOGLE_OAUTH_URL_WEB =
-	process.env.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_URL_WEB;
+export const AUTH_GOOGLE_OAUTH_URL = process.env
+	.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_URL as string;
+export const AUTH_GOOGLE_OAUTH_URL_WEB = process.env
+	.EXPO_PUBLIC_AUTH_GOOGLE_OAUTH_URL_WEB as string;
 
 const getClientType = () => {
 	if (isMobile) {
