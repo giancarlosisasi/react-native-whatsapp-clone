@@ -4,16 +4,25 @@ import { useAuth } from '@/shared/context/auth';
 import { colors } from '@/theme/colors';
 
 export const LoginForm = () => {
-	const { signin, signout } = useAuth();
+	const { signin, signout, user } = useAuth();
+
+	console.log({ user });
+
+	if (user) {
+		return (
+			<View style={styles.container}>
+				<TouchableOpacity style={styles.button} onPress={signout}>
+					<Text style={styles.buttonText}>Logout</Text>
+				</TouchableOpacity>
+			</View>
+		);
+	}
 
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity style={styles.button} onPress={signin}>
 				<AntDesign name='google' size={24} color={colors.white} />
 				<Text style={styles.buttonText}>Continue with Google</Text>
-			</TouchableOpacity>
-			<TouchableOpacity style={styles.button} onPress={signout}>
-				<Text style={styles.buttonText}>Logout</Text>
 			</TouchableOpacity>
 		</View>
 	);
