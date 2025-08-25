@@ -9,29 +9,259 @@ directive @defer(
   label: String
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
-scalar DateTime
-
-type Mutation {
-  createTodo(input: NewTodo!): Todo!
+type AppTime {
+  timeStamp: String!
+  unixTime: Int!
 }
 
-input NewTodo {
-  text: String!
-  userId: String!
+type Conversation {
+  avatarUrl: String
+  createdAt: Time!
+  description: String
+  id: ID!
+  name: String
+  type: ConversationTypeEnum!
+  updatedAt: Time!
+}
+
+union ConversationListItem = ConversationListItemDirect | ConversationListItemGroup
+
+type ConversationListItemDirect {
+  createdAt: Time!
+  id: ID!
+  lastMessage: Message
+  type: ConversationTypeEnum!
+  unreadCount: Int!
+  updatedAt: Time!
+}
+
+type ConversationListItemGroup {
+  createdAt: Time!
+  id: ID!
+  lastMessage: Message
+  type: ConversationTypeEnum!
+  unreadCount: Int!
+  updatedAt: Time!
+}
+
+input ConversationMessageInput {
+  conversationId: ID!
+  pagination: Pagination
+}
+
+union ConversationMessagesQueryResult = ConversationMessagesQuerySuccess | NotFoundError | ServerError | UnauthorizedError
+
+type ConversationMessagesQuerySuccess implements Success {
+  messages: [Message!]!
+  success: Boolean!
+}
+
+type ConversationParticipant {
+  id: ID!
+  isActive: Boolean!
+  joinedAt: Time!
+  lastReadAt: Time
+  user: User!
+}
+
+enum ConversationTypeEnum {
+  DIRECT
+  GROUP
+}
+
+input ConversationUpdatedSubscriptionInput {
+  conversationId: ID!
+}
+
+scalar DateTime
+
+input EditMessageInput {
+  content: String!
+  messageId: ID!
+}
+
+union EditMessageResult = EditMessageSuccess | NotFoundError | ServerError | UnauthorizedError
+
+type EditMessageSuccess implements Success {
+  message: Message!
+  success: Boolean!
+}
+
+interface Error {
+  code: String!
+  errorMessage: String!
+}
+
+type ForbiddenError implements Error {
+  code: String!
+  errorMessage: String!
+}
+
+input GetOrCreateDirectConversationInput {
+  userId: ID!
+}
+
+union GetOrCreateDirectConversationResult = GetOrCreateDirectConversationSuccess | NotFoundError | ServerError | UnauthorizedError
+
+type GetOrCreateDirectConversationSuccess implements Success {
+  conversation: Conversation!
+  success: Boolean!
+}
+
+input MarkConversationAsReadInput {
+  conversationId: ID!
+}
+
+union MarkConversationAsReadResult = MarkConversationAsReadSuccess | NotFoundError | ServerError | UnauthorizedError
+
+type MarkConversationAsReadSuccess implements Success {
+  conversation: ConversationListItem!
+  success: Boolean!
+}
+
+type Message {
+  content: String!
+  createdAt: Time!
+  deliveredAt: Time
+  editedAt: Time
+  id: ID!
+  messageType: MessageTypeEnum!
+  readAt: Time
+  replyToMessage: ReplyMessage
+  sender: User!
+  status: MessageStatusEnum!
+}
+
+type MessageAddedEvent {
+  content: String!
+  id: ID!
+  messageType: MessageTypeEnum!
+  replyToMessageId: ID
+  senderUserId: ID!
+}
+
+input MessageAddedSubscriptionInput {
+  conversationId: ID!
+}
+
+enum MessageStatusEnum {
+  DELIVERED
+  FAILED
+  READ
+  SENT
+}
+
+type MessageStatusUpdatedEvent {
+  conversationId: ID!
+  messageId: ID!
+  status: MessageStatusEnum!
+}
+
+input MessageStatusUpdatedSubscriptionInput {
+  conversationId: ID!
+}
+
+enum MessageTypeEnum {
+  FILE
+  IMAGE
+  TEXT
+}
+
+type Mutation {
+  editMessage(input: EditMessageInput!): EditMessageResult!
+  example: String
+  markConversationAsRead(input: MarkConversationAsReadInput!): MarkConversationAsReadResult!
+  sendMessage(input: SendMessageInput!): SendMessageResult!
+  startDirectConversation(input: StartDirectConversationInput!): StartDirectConversationResult!
+}
+
+union MyConversationsQueryResult = MyConversationsQuerySuccess | ServerError | UnauthorizedError
+
+type MyConversationsQuerySuccess implements Success {
+  conversations: [ConversationListItem!]!
+  success: Boolean!
+}
+
+type NotFoundError implements Error {
+  code: String!
+  errorMessage: String!
+}
+
+input Pagination {
+  limit: Int!
+  offset: Int!
 }
 
 type Query {
+  conversationMessages(input: ConversationMessageInput!): ConversationMessagesQueryResult!
+  example: String
+  getOrCreateDirectConversation(input: GetOrCreateDirectConversationInput!): GetOrCreateDirectConversationResult!
   me: User
-  todos: [Todo!]!
+  myConversations: MyConversationsQueryResult!
+}
+
+type ReplyMessage {
+  content: String!
+  id: ID!
+  messageType: MessageTypeEnum!
+  senderName: String!
+}
+
+input SendMessageInput {
+  content: String!
+  conversationId: ID!
+  messageType: MessageTypeEnum!
+  replyToMessageId: ID
+  senderID: ID!
+}
+
+union SendMessageResult = NotFoundError | SendMessageSuccess | ServerError | UnauthorizedError
+
+type SendMessageSuccess implements Success {
+  success: Boolean!
+}
+
+type ServerError implements Error {
+  code: String!
+  errorMessage: String!
+}
+
+input StartDirectConversationInput {
+  participantId: ID!
+}
+
+union StartDirectConversationResult = NotFoundError | ServerError | StartDirectConversationSuccess | UnauthorizedError
+
+type StartDirectConversationSuccess implements Success {
+  conversation: Conversation!
+  success: Boolean!
+}
+
+type Subscription {
+  conversationUpdated(input: ConversationUpdatedSubscriptionInput!): ConversationListItem!
+  currentTime: AppTime!
+  example: String
+  messageAdded(input: MessageAddedSubscriptionInput!): MessageAddedEvent!
+  messageStatusUpdated(input: MessageStatusUpdatedSubscriptionInput!): MessageStatusUpdatedEvent!
+  userTyping(input: UserTypingSubscriptionInput!): TypingEvent!
+}
+
+interface Success {
+  success: Boolean!
 }
 
 scalar Time
 
-type Todo {
-  done: Boolean!
-  id: ID!
-  text: String!
+type TypingEvent {
+  conversationId: ID!
+  isTyping: Boolean!
+  timestamp: Time!
   user: User!
+}
+
+type UnauthorizedError implements Error {
+  code: String!
+  errorMessage: String!
 }
 
 type User {
@@ -41,4 +271,13 @@ type User {
   id: ID!
   name: String
   updatedAt: Time!
+}
+
+input UserTypingSubscriptionInput {
+  conversationId: ID!
+}
+
+type ValidationError implements Error {
+  code: String!
+  errorMessage: String!
 }

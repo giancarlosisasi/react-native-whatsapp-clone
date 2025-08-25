@@ -1,32 +1,3 @@
-import { useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { ChatRow } from '@/shared/components/chat-row';
-import { defaultStyles } from '@/shared/ui/default-styles';
-import { colors } from '@/theme/colors';
-import chatsData from '../../../../assets/data/chats.json';
+import { ChatsView } from '@/views/chats/chats.view';
 
-export default function Chats() {
-	const [chats, _setChats] = useState<typeof chatsData>(chatsData);
-
-	return (
-		<ScrollView
-			contentInsetAdjustmentBehavior='automatic'
-			contentContainerStyle={{
-				paddingBottom: 40,
-				paddingTop: 120,
-				backgroundColor: colors.white,
-			}}
-		>
-			<FlatList
-				scrollEnabled={false}
-				data={chats}
-				keyExtractor={(item) => item.id}
-				ItemSeparatorComponent={() => <View style={defaultStyles.separator} />}
-				renderItem={({ item }) => <ChatRow {...item} />}
-			/>
-		</ScrollView>
-	);
-}
-
-const _styles = StyleSheet.create({});
+export default ChatsView;
