@@ -22,6 +22,8 @@ const getApiEndpoint = () => {
 };
 
 export const API_ENDPOINT = getApiEndpoint();
+export const WS_API_ENDPOINT = process.env
+	.EXPO_PUBLIC_GRAPHQL_WS_ENDPOINT as string;
 
 const getAuthLogoutUrl = () => {
 	const logoutUrl: string | undefined = process.env.EXPO_PUBLIC_AUTH_LOGOUT_URL;
