@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7bf93a55d48e5dd58b37cbc8eb8a25e0>>
+ * @generated SignedSource<<7c0117e46b72776d7be0ac3aaeafac66>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,9 +19,11 @@ export type chatDetailMessageAddedSubscription$variables = {
 export type chatDetailMessageAddedSubscription$data = {
 	readonly messageAdded: {
 		readonly content: string;
+		readonly createdAt: any;
 		readonly id: string;
 		readonly messageType: MessageTypeEnum;
 		readonly replyToMessageId: string | null | undefined;
+		readonly senderName: string;
 		readonly senderUserId: string;
 	};
 };
@@ -71,6 +73,13 @@ const node: ConcreteRequest = (function () {
 						alias: null,
 						args: null,
 						kind: 'ScalarField',
+						name: 'senderName',
+						storageKey: null,
+					},
+					{
+						alias: null,
+						args: null,
+						kind: 'ScalarField',
 						name: 'content',
 						storageKey: null,
 					},
@@ -86,6 +95,13 @@ const node: ConcreteRequest = (function () {
 						args: null,
 						kind: 'ScalarField',
 						name: 'messageType',
+						storageKey: null,
+					},
+					{
+						alias: null,
+						args: null,
+						kind: 'ScalarField',
+						name: 'createdAt',
 						storageKey: null,
 					},
 				],
@@ -110,16 +126,16 @@ const node: ConcreteRequest = (function () {
 			selections: v1 /*: any*/,
 		},
 		params: {
-			cacheID: '6461a5bca01d99e6d2f3060f12c4c80d',
+			cacheID: 'ef7180fea5856eab6e4eaf319eeccea1',
 			id: null,
 			metadata: {},
 			name: 'chatDetailMessageAddedSubscription',
 			operationKind: 'subscription',
-			text: 'subscription chatDetailMessageAddedSubscription(\n  $input: MessageAddedSubscriptionInput!\n) {\n  messageAdded(input: $input) {\n    id\n    senderUserId\n    content\n    replyToMessageId\n    messageType\n  }\n}\n',
+			text: 'subscription chatDetailMessageAddedSubscription(\n  $input: MessageAddedSubscriptionInput!\n) {\n  messageAdded(input: $input) {\n    id\n    senderUserId\n    senderName\n    content\n    replyToMessageId\n    messageType\n    createdAt\n  }\n}\n',
 		},
 	};
 })();
 
-(node as any).hash = 'b1e19fcc09e3b7c3963f0d11a4461202';
+(node as any).hash = 'd8fbdf42e6b0e8b7cb16a2a4a902fcf7';
 
 export default node;

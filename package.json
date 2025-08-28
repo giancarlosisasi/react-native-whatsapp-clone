@@ -15,7 +15,7 @@
 		"platform-setup": "tsx ./scripts/windows-support.ts",
 		"validate:knip": "knip",
 		"relay": "npx relay-compiler",
-		"download-schema": "npx graphql-inspector introspect https://golang-whatsapp-clone.vercel.app/graphql --write schema.graphql",
+		"download-schema": "npx graphql-inspector introspect https://luna-chat.gio-labs.com/graphql --write schema.graphql",
 		"prepare": "husky"
 	},
 	"dependencies": {

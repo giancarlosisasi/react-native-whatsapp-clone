@@ -53,11 +53,9 @@ export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
 		const wsClient = createClient({
 			url: WS_API_ENDPOINT,
 			connectionParams: {
-				headers,
+				authToken,
 			},
 		});
-
-		console.log({ WS_API_ENDPOINT, API_ENDPOINT });
 
 		const subscribe: SubscribeFunction = (operation, variables) => {
 			return Observable.create((sink) => {

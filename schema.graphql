@@ -134,9 +134,11 @@ type Message {
 
 type MessageAddedEvent {
   content: String!
+  createdAt: Time!
   id: ID!
   messageType: MessageTypeEnum!
   replyToMessageId: ID
+  senderName: String!
   senderUserId: ID!
 }
 

@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { ImageBackground } from 'expo-image';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import {
 	Bubble,
@@ -17,7 +17,7 @@ import {
 	usePreloadedQuery,
 	useSubscription,
 } from 'react-relay';
-import { graphql } from 'relay-runtime';
+import { type GraphQLSubscriptionConfig, graphql } from 'relay-runtime';
 import { ChatMessageBox } from '@/shared/components/chat-message-box';
 import { ReplyMessageBar } from '@/shared/components/reply-message-bar';
 import { useAuth } from '@/shared/context/auth';
@@ -107,9 +107,11 @@ const subscriptionMessageAdded = graphql`
     messageAdded(input: $input) {
       id
       senderUserId
+			senderName
       content
       replyToMessageId
       messageType
+			createdAt
     }
   }
 `;
@@ -129,7 +131,7 @@ export function ChatDetail({
 		undefined,
 	);
 
-	const [sendMessage, isInFlight] = useMutation<MutationType>(
+	const [sendMessage, _isInFlight] = useMutation<MutationType>(
 		chatDetailSendMessageMutation,
 	);
 
@@ -137,22 +139,7 @@ export function ChatDetail({
 		chatDetailConversationMessagesQuery,
 		queryRef,
 	);
-
-	const config = useMemo(
-		() => ({
-			variables: {
-				input: {
-					conversationId,
-				},
-			},
-			subscription: subscriptionMessageAdded,
-		}),
-		[conversationId],
-	);
-
-	useSubscription<SubscriptionType>(config);
-
-	const messages: IMessage[] =
+	const _messages: IMessage[] =
 		data.conversationMessages.__typename === 'ConversationMessagesQuerySuccess'
 			? data.conversationMessages.messages.map((message) => ({
 					_id: message.id,
@@ -165,29 +152,42 @@ export function ChatDetail({
 				}))
 			: [];
 
-	// useEffect(() => {
-	// 	setMessages([
-	// 		...messagesData.map((message) => ({
-	// 			_id: message.id,
-	// 			text: message.msg,
-	// 			createdAt: new Date(message.date),
-	// 			user: {
-	// 				_id: message.from,
-	// 				name: message.from ? 'You' : 'Bob',
-	// 			},
-	// 		})),
-	// 		{
-	// 			_id: 0,
-	// 			system: true,
-	// 			text: 'All your base are belong to use',
-	// 			createdAt: new Date(),
-	// 			user: {
-	// 				_id: 0,
-	// 				name: 'Bot',
-	// 			},
-	// 		},
-	// 	]);
-	// }, []);
+	const [messages, setMessages] = useState<IMessage[]>(_messages);
+
+	const config: GraphQLSubscriptionConfig<SubscriptionType> = useMemo(
+		() => ({
+			variables: {
+				input: {
+					conversationId,
+				},
+			},
+			subscription: subscriptionMessageAdded,
+			onNext: (data) => {
+				if (!data) {
+					return;
+				}
+
+				setMessages((prev) => [
+					{
+						_id: data.messageAdded.id,
+						text: data.messageAdded.content,
+						createdAt: new Date(data.messageAdded.createdAt),
+						user: {
+							_id: data.messageAdded.senderUserId,
+							name: data.messageAdded.senderName,
+						},
+					},
+					...prev,
+				]);
+			},
+			onError: (error) => {
+				console.log('[subscription - messageAdded] onError', error);
+			},
+		}),
+		[conversationId],
+	);
+
+	useSubscription<SubscriptionType>(config);
 
 	const onSend = (messages: IMessage[]) => {
 		const newMessage = messages[0];
