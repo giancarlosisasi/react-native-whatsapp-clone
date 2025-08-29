@@ -88,7 +88,6 @@ export const RelayProvider = ({ children }: { children: React.ReactNode }) => {
 
 	// the auth token will only change when a new user session is created (user logs in)
 	useEffect(() => {
-		console.log('setting up relay environment');
 		setupRelayEnvironment(authToken);
 	}, [setupRelayEnvironment, authToken]);
 

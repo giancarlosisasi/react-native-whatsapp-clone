@@ -35,7 +35,6 @@ export const AuthTokenProvider = ({
 	const [authToken, setAuthToken] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
-		console.log('fetching auth token');
 		const fetchToken = async () => {
 			setIsLoading(true);
 			try {
@@ -53,10 +52,6 @@ export const AuthTokenProvider = ({
 			}
 		};
 		fetchToken();
-
-		return () => {
-			console.log('unmounting auth token provider');
-		};
 	}, [router]);
 
 	const saveAuthToken = useCallback(async (token: string) => {

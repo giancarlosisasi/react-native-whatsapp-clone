@@ -28,7 +28,6 @@ export default function AuthToken() {
 	}, [router]);
 
 	useEffect(() => {
-		console.log('auth/[token] page - processing token');
 		const processAuthToken = async (token: string) => {
 			if (token) {
 				try {
@@ -45,8 +44,6 @@ export default function AuthToken() {
 
 		processAuthToken(token);
 	}, [token, router, saveAuthToken, failedToProcessToken]);
-
-	console.log('auth token page - token', token);
 
 	return (
 		<View

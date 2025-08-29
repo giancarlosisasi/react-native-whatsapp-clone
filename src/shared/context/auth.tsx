@@ -91,14 +91,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const signout = async () => {
 		if (isMobile) {
-			console.log('[Native] - [context/auth] - signout called');
 			await removeAuthToken();
 			router.replace('/');
 			return;
 		}
 
 		// in web, we must make a GET request to the logout url
-		console.log('[Web] - [context/auth] - signout called', { AUTH_LOGOUT_URL });
 		// this will clear the auth cookies
 		await fetch(AUTH_LOGOUT_URL, {
 			method: 'GET',
@@ -117,8 +115,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useAuth = () => {
 	const context = useContext(AuthContext);
+
 	if (context === undefined) {
 		throw new Error('useAuth must be used within an AuthProvider');
 	}
+
 	return context;
+};
+
+export const useMe = () => {
+	const { user } = useAuth();
+
+	if (!user) {
+		throw new Error('useMe can be only used when user is logged in');
+	}
+
+	return {
+		me: user,
+	};
 };

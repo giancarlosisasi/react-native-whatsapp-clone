@@ -6,8 +6,6 @@ import { colors } from '@/theme/colors';
 export const LoginForm = () => {
 	const { signin, signout, user } = useAuth();
 
-	console.log({ user });
-
 	if (user) {
 		return (
 			<View style={styles.container}>
