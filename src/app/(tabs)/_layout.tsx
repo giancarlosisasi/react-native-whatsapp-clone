@@ -87,6 +87,9 @@ export default function TabLayout() {
 							<Ionicons size={28} name='cog' color={color} />
 						),
 					}}
+					initialParams={{
+						screen: 'index',
+					}}
 				/>
 			</Tabs>
 		</GestureHandlerRootView>

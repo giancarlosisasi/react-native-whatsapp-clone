@@ -16,6 +16,12 @@ export default function SettingsLayout() {
 					},
 				}}
 			/>
+			<Stack.Screen
+				name='account'
+				options={{
+					headerShown: false,
+				}}
+			/>
 		</Stack>
 	);
 }
